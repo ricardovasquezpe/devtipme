@@ -10,12 +10,12 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { appReducers } from './app.reducer';
 import { SearchModule } from './pages/search/search.module';
-
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { SideNavContentComponent } from './components/side-nav-content/side-nav-content.component';
+import { ProfileModule } from './pages/profile/profile.module';
 
 @NgModule({
   declarations: [
@@ -29,6 +29,7 @@ import { SideNavContentComponent } from './components/side-nav-content/side-nav-
     BrowserModule,
     AppRoutingModule,
     SearchModule,
+    ProfileModule,
     ReactiveFormsModule,
     StoreModule.forRoot(appReducers),
     StoreDevtoolsModule.instrument({

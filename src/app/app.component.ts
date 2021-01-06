@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { NavigationService } from './services/navigation/navigation.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +10,9 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppComponent {
   constructor(
-    public translate: TranslateService
+    public translate: TranslateService,
+    private router: Router, 
+    private navService: NavigationService
   ) {
     translate.addLangs(['en', 'es']);
     translate.setDefaultLang('en');
@@ -16,5 +20,10 @@ export class AppComponent {
 
   switchLang() {
     this.translate.use("es");
+  }
+
+  goToProfile(){
+    this.router.navigate(["/profile"]);
+    this.navService.setShowNav(false);
   }
 }

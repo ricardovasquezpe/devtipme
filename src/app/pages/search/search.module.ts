@@ -4,16 +4,17 @@ import { SearchRoutingModule } from './search-routing.module';
 import { SearchComponent } from './search.component';
 import { SolutionCardComponent } from 'src/app/components/solution-card/solution-card.component';
 import { TrendingTopicPillComponent } from 'src/app/components/trendingtopic-pill/trendingtopic-pill.component';
+import { ComponentsModule } from 'src/app/components/components.module';
 ​
 @NgModule({
 	declarations: [
 		SearchComponent,
-		SolutionCardComponent,
 		TrendingTopicPillComponent
 	],
 	imports: [
 		CommonModule,
-		SearchRoutingModule
+		SearchRoutingModule,
+		ComponentsModule
 	],
 })
 ​
