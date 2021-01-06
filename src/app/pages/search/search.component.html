@@ -1,0 +1,21 @@
+<div class="container">
+    <p class="sub-title">
+        TRENDING TOPICS
+    </p>
+    <div class="row">
+        <div class="col-sm-12">
+            <trendingtopic-pill [ngClass]="{'ml-2': !isFirst}" *ngFor="let trending of trendings; index as i; first as isFirst" [trending]="trending"></trendingtopic-pill>
+        </div>
+    </div>
+    <hr>
+    <p class="sub-title">
+        LAST SOLUTIONS
+    </p>
+    <div class="solitions-container">
+        <div class="row">
+            <div class="col-sm-6 mb-2 card-wrap" *ngFor="let sol of solutions; index as i; first as isFirst">
+                <solution-card [solution]="sol"></solution-card>
+            </div>
+        </div>
+    </div>
+</div>

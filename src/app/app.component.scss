@@ -1,0 +1,20 @@
+.wrap {
+    margin-top: 50px;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    color: #FFF;
+    height: 100%;
+
+    section {
+        flex: 1;
+    }
+}
+
+.username {
+    font-family: Monserrat-SemiBold;
+    font-size: 20px;
+    margin-bottom: 30px;
+}

@@ -1,0 +1,21 @@
+<app-side-nav 
+  [sidenavTemplateRef]="navContent"
+  [direction]="'left'" 
+  [navWidth]="280" 
+  [duration]="0.5"></app-side-nav>
+
+<div class="main-container">
+    <myheader></myheader>
+    <section class="wrap">
+        <router-outlet></router-outlet>
+    </section>
+</div>
+
+<ng-template #navContent>
+    <p class="username">TheBugKiller</p>
+    <app-side-nav-content></app-side-nav-content>
+</ng-template>
+
+<!--{{'title' | translate}}
+
+<button (click) = "switchLang()"></button> -->
