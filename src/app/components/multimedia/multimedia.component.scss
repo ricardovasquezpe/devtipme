@@ -1,0 +1,38 @@
+.container-multimedia {
+    background-color: #414040;
+    border-radius: 0.8rem;
+    padding: 10px;
+    height: 200px;
+    position: relative;
+    width: 100%;
+}
+
+.input-icon {
+    color: white;
+    font-size: 28px;
+    opacity: 0.45;
+    cursor: pointer;
+}
+
+.input-icon:hover {
+    opacity: 1;
+}
+
+.input-icon-remove{
+    color: #b61827;
+    font-size: 28px;
+    opacity: 0.60;
+    cursor: pointer;
+}
+
+.input-icon-remove:hover {
+    opacity: 1;
+}
+
+.center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); 
+}

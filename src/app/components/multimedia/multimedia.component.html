@@ -1,0 +1,18 @@
+<div class="container-multimedia" *ngIf="multimediaShow">
+    <div class="center">
+        <span class="material-icons input-icon" (click)="selectOption(1)">text_fields</span>
+        <span class="material-icons input-icon ml-3" (click)="selectOption(2)">image</span>
+        <span class="material-icons input-icon ml-3" (click)="selectOption(3)">code</span>
+        <span class="material-icons input-icon-remove ml-3" (click)="selectOption(4)">delete</span>
+    </div>
+</div>
+
+<div *ngIf="textAreaShow">
+    <app-my-textarea></app-my-textarea>
+</div>
+
+<div *ngIf="imageShow">
+    <div class="text-center">
+        <img src="https://codigoonclick.com/wp-content/uploads/2018/03/conoce-angular-clase.png">
+    </div>
+</div>
