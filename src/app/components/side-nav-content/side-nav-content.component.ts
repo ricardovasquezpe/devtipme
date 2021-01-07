@@ -11,8 +11,8 @@ import { NavigationService } from 'src/app/services/navigation/navigation.servic
 export class SideNavContentComponent implements OnInit {
 
   navItems = [
-    { label: 'Search', route: '/Search'},
-    { label: 'New Post', route: '/newpost'},
+    { label: 'Search', route: '/search'},
+    { label: 'New Solution', route: '/new-solution'},
     { label: 'Feedback', route: '/feedback'},
     { label: 'About us', route: '/aboutus'},
     { label: 'Logout', route: '/logout'}
@@ -26,7 +26,7 @@ export class SideNavContentComponent implements OnInit {
 
   onNavigationSelection(navItem: any) {
     this.navService.setShowNav(false);
-    //this.router.navigate([navItem.route]);
+    this.router.navigate([navItem.route]);
   }
 
 }

@@ -16,6 +16,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { SideNavContentComponent } from './components/side-nav-content/side-nav-content.component';
 import { ProfileModule } from './pages/profile/profile.module';
+import { NewSolutionModule } from './pages/new-solution/new-solution.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { ProfileModule } from './pages/profile/profile.module';
     AppRoutingModule,
     SearchModule,
     ProfileModule,
+    NewSolutionModule,
     ReactiveFormsModule,
     StoreModule.forRoot(appReducers),
     StoreDevtoolsModule.instrument({
