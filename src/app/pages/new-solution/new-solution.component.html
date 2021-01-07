@@ -4,7 +4,7 @@
             <input type="text" class="input-text" placeholder="TITLE...">
         </div>
     </div>
-    <div class="row mb-2">
+    <div class="row mb-2" *ngFor="let sol of this.multimediaList; index as i; first as isFirst">
         <div class="col-sm-12">
             <app-multimedia></app-multimedia>
         </div>
@@ -12,7 +12,7 @@
     <div class="row mb-4">
         <div class="col-sm-12">
             <div class="text-center">
-                <span class="material-icons input-icon add-icon">add</span>
+                <span class="material-icons input-icon add-icon" (click)="addMultimedia()">add</span>
             </div>
         </div>
     </div>
