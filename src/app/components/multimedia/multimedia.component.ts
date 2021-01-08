@@ -1,22 +1,36 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import * as ace from "ace-builds";
 
 @Component({
   selector: 'app-multimedia',
   templateUrl: './multimedia.component.html',
   styleUrls: ['./multimedia.component.scss']
 })
-export class MultimediaComponent implements OnInit {
+export class MultimediaComponent implements OnInit, AfterViewInit  {
 
   multimediaShow:boolean = true;
   textAreaShow:boolean = false;
   imageShow:boolean = false;
+  codeEditorShow:boolean = false;
 
-  private selectedFile: File;
   urlImage:String | ArrayBuffer = "";
+  aceEditor: ace.Ace.Editor;
+  @ViewChild("editor") private editor: ElementRef<HTMLElement>;
 
   constructor(private host: ElementRef<HTMLElement>) { }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit(): void {
+    this.initCodeEditor();
+  }
+
+  initCodeEditor(){
+    ace.config.set("fontSize", "15px");
+    ace.config.set('basePath', 'https://unpkg.com/ace-builds@1.4.12/src-noconflict');
+    this.aceEditor = ace.edit(this.editor.nativeElement);
+    this.aceEditor.setTheme('ace/theme/chaos');
   }
 
   selectOption(action){
@@ -30,15 +44,11 @@ export class MultimediaComponent implements OnInit {
         break;
       }
       case 3: {
-        console.log("3");
+        this.codeEditorOption();
         break;
       }
       case 4: {
         this.deleteOption();
-        break;
-      }
-      default:{
-        console.log("default");
         break;
       }
     }
@@ -54,13 +64,17 @@ export class MultimediaComponent implements OnInit {
     this.imageShow = true;
   }
 
+  codeEditorOption(){
+    this.multimediaShow = false;
+    this.codeEditorShow = true;
+  }
+
   deleteOption(){
     this.host.nativeElement.remove();
   }
 
   onFileChanged(event){
     const files = event.target.files;
-    console.log(files);
     if (files.length === 0)
         return;
 
@@ -75,5 +89,9 @@ export class MultimediaComponent implements OnInit {
         this.urlImage = reader.result; 
         this.selectOption(2);
     }
+  }
+
+  test(){
+    console.log(this.aceEditor.getValue());
   }
 }

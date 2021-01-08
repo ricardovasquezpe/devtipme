@@ -14,7 +14,7 @@
         <div style="width: 95%;display: inline-block">
             <app-my-textarea></app-my-textarea>
         </div>
-        <div style="width: 5%;display: inline-block;">
+        <div style="width: 5%;display: inline-block;vertical-align: top;">
             <span class="material-icons input-icon-remove" (click)="selectOption(4)">delete</span>
         </div>
     </div>
@@ -25,7 +25,18 @@
                 <img [src]="urlImage" width="100%">
             </div>
         </div>
-        <div style="width: 5%;display: inline-block;">
+        <div style="width: 5%;display: inline-block;vertical-align: top;">
+            <span class="material-icons input-icon-remove" (click)="selectOption(4)">delete</span>
+        </div>
+    </div>
+
+    <div [hidden]="!codeEditorShow">
+        <div style="width: 95%;display: inline-block">
+            <div class="text-center">
+                <div class="app-ace-editor" #editor style="width: 100%;height: 350px;"></div>
+            </div>
+        </div>
+        <div style="width: 5%;display: inline-block;vertical-align: top;">
             <span class="material-icons input-icon-remove" (click)="selectOption(4)">delete</span>
         </div>
     </div>

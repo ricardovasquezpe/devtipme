@@ -2,7 +2,7 @@
     background-color: #414040;
     border-radius: 0.8rem;
     padding: 10px;
-    height: 200px;
+    height: 150px;
     position: relative;
     width: 100%;
 }
@@ -36,3 +36,8 @@
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%); 
 }
+/*
+.app-ace-editor {
+    border: 2px solid #f8f9fa;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}*/
