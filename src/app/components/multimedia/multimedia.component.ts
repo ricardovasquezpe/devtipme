@@ -11,6 +11,9 @@ export class MultimediaComponent implements OnInit {
   textAreaShow:boolean = false;
   imageShow:boolean = false;
 
+  private selectedFile: File;
+  urlImage:String | ArrayBuffer = "";
+
   constructor(private host: ElementRef<HTMLElement>) { }
 
   ngOnInit(): void {
@@ -55,4 +58,22 @@ export class MultimediaComponent implements OnInit {
     this.host.nativeElement.remove();
   }
 
+  onFileChanged(event){
+    const files = event.target.files;
+    console.log(files);
+    if (files.length === 0)
+        return;
+
+    const mimeType = files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(files[0]); 
+    reader.onload = (_event) => { 
+        this.urlImage = reader.result; 
+        this.selectOption(2);
+    }
+  }
 }

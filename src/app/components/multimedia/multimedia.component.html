@@ -1,31 +1,32 @@
 <div class="mb-3">
     <div class="container-multimedia" *ngIf="multimediaShow">
         <div class="center">
+            <input style="display: none" type="file" (change)="onFileChanged($event)" accept='image/*' #hiddenfileinput>
+
             <span class="material-icons input-icon" (click)="selectOption(1)">text_fields</span>
-            <span class="material-icons input-icon ml-3" (click)="selectOption(2)">image</span>
+            <span class="material-icons input-icon ml-3" (click)="hiddenfileinput.click()">image</span>
             <span class="material-icons input-icon ml-3" (click)="selectOption(3)">code</span>
             <span class="material-icons input-icon-remove ml-3" (click)="selectOption(4)">delete</span>
         </div>
     </div>
     
     <div *ngIf="textAreaShow">
-        <div class="" style="width: 95%;display: inline-block">
+        <div style="width: 95%;display: inline-block">
             <app-my-textarea></app-my-textarea>
         </div>
-        <div class="" style="width: 5%;display: inline-block;">
+        <div style="width: 5%;display: inline-block;">
             <span class="material-icons input-icon-remove" (click)="selectOption(4)">delete</span>
         </div>
     </div>
     
     <div *ngIf="imageShow">
-        <div class="" style="width: 95%;display: inline-block">
+        <div style="width: 95%;display: inline-block">
             <div class="text-center">
-                <img src="https://codigoonclick.com/wp-content/uploads/2018/03/conoce-angular-clase.png">
+                <img [src]="urlImage" width="100%">
             </div>
         </div>
-        <div class="" style="width: 5%;display: inline-block;">
+        <div style="width: 5%;display: inline-block;">
             <span class="material-icons input-icon-remove" (click)="selectOption(4)">delete</span>
         </div>
     </div>
-    
 </div>
