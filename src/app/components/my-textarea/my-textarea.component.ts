@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-my-textarea',
@@ -7,7 +7,9 @@ import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 })
 export class MyTextareaComponent implements OnInit {
 
-  constructor(private elementRef: ElementRef) { }
+  @Input() placeHolder: string = "Enter a text..."
+
+  constructor() { }
 
   ngOnInit(): void {
     

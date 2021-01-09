@@ -41,12 +41,16 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row mb-5">
         <div class="col-sm-12">
             <trendingtopic-pill [ngClass]="{'ml-2': !isFirst}" *ngFor="let trending of trendings; index as i; first as isFirst" [trending]="trending"></trendingtopic-pill>
         </div>
     </div>
-    <div>
-
+    <div class="row container-comments">
+        <div class="col-sm-12">
+            <div>
+                <app-my-textarea [placeHolder]="'Enter a comment'"></app-my-textarea>
+            </div>
+        </div>
     </div>
 </div>
