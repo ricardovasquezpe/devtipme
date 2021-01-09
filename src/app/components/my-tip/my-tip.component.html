@@ -1,3 +1,4 @@
-<div class="tip-container">
-    <p class="tip">$10</p>
+<div class="tip-container" (click)="this.clickTip()" (mouseover)="this.mouseOver()" (mouseleave)="this.mouseLeave()">
+    <p class="tip" *ngIf="!showAddIcon">$10</p>
+    <span class="material-icons return-icon" [@inOutAnimation] *ngIf="showAddIcon">add</span>
 </div>
