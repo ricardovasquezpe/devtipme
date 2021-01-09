@@ -18,3 +18,11 @@
 .tip {
     margin: 0;
 }
+
+.modal-content {
+    background-color: black;
+}
+
+::ng-deep .modal-content {
+    background-color: black !important;
+}
