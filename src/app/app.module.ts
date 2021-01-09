@@ -17,7 +17,7 @@ import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { SideNavContentComponent } from './components/side-nav-content/side-nav-content.component';
 import { ProfileModule } from './pages/profile/profile.module';
 import { NewSolutionModule } from './pages/new-solution/new-solution.module';
-import { TextareaAutoresizeDirective } from './directives/textarea-autoresize/textarea-autoresize.directive';
+import { DetailSolutionModule } from './pages/detail-solution/detail-solution.module';
 
 @NgModule({
   declarations: [
@@ -33,6 +33,7 @@ import { TextareaAutoresizeDirective } from './directives/textarea-autoresize/te
     SearchModule,
     ProfileModule,
     NewSolutionModule,
+    DetailSolutionModule,
     ReactiveFormsModule,
     StoreModule.forRoot(appReducers),
     StoreDevtoolsModule.instrument({

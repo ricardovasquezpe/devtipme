@@ -1,1 +1,52 @@
-<p>detail-solution works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+            <p class="author">TheBugKiller</p>
+            <p class="date">Dec. 26</p>
+        </div>
+        <div class="col-sm-3 text-right">
+            <!--span class="material-icons" style="font-size: 35px;">delete</span-->
+            <app-my-tip style="display: inline-block;"></app-my-tip>
+        </div>
+    </div>
+    <hr class="divider">
+    <div class="row mb-5">
+        <div class="col-sm-1 vertical-align text-center">
+            <span class="material-icons return-icon">keyboard_arrow_left</span>
+        </div>
+        <div class="col-sm-11 vertical-align">
+            <p class="title">Error in java file when creating a new Service are in the same page following  patterns like bloc patter when fafwaafw afwfwafwafwa</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="text-solution mb-4">
+                <p>afwfwafwafwafwa fwafwafwafwafwafwa fwafwafwafwafwaawffwafwa afwfwafwafwafwawagwagwagwa awf awggwagwawag wa awawf wafawafwfwa wafwafwawaf</p>
+            </div>
+
+            <div class="image-solution mb-4">
+                <img src="https://johnpapa.net/content/images/2017/11/sxs-index-1.png">
+            </div>
+
+            <div class="text-solution mb-4">
+                <p>afwfwafwafwafwa fwafwafwafwafwafwa fwafwafwafwafwaawffwafwa afwfwafwafwafwawagwagwagwa awf awggwagwawag wa awawf wafawafwfwa wafwafwawaf</p>
+            </div>
+
+            <div class="code-solution mb-4">
+                <div class="app-ace-editor" #editor style="width: 100%;height: 350px;"></div>
+            </div>
+
+            <div class="text-solution mb-4">
+                <p>afwfwafwafwafwa fwafwafwafwafwafwa fwafwafwafwafwaawffwafwa afwfwafwafwafwawagwagwagwa awf awggwagwawag wa awawf wafawafwfwa wafwafwawaf</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <trendingtopic-pill [ngClass]="{'ml-2': !isFirst}" *ngFor="let trending of trendings; index as i; first as isFirst" [trending]="trending"></trendingtopic-pill>
+        </div>
+    </div>
+    <div>
+
+    </div>
+</div>
