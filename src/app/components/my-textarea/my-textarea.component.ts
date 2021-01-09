@@ -7,7 +7,7 @@ import { Component, ElementRef, Input, OnInit } from '@angular/core';
 })
 export class MyTextareaComponent implements OnInit {
 
-  @Input() placeHolder: string = "Enter a text..."
+  @Input() placeHolder: string = "Enter a text...";
 
   constructor() { }
 

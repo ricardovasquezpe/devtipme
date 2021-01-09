@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import * as ace from "ace-builds";
 import { TrendingTopic } from 'src/app/models/trendingtopic.model';
+import { CommentSolution } from 'src/app/models/commentsolution.model';
 
 @Component({
   selector: 'app-detail-solution',
@@ -10,6 +11,7 @@ import { TrendingTopic } from 'src/app/models/trendingtopic.model';
 export class DetailSolutionComponent implements OnInit, AfterViewInit {
   aceEditor: ace.Ace.Editor;
   trendings: TrendingTopic[] = [];
+  comments: CommentSolution[] = [];
 
   @ViewChild("editor") private editor: ElementRef<HTMLElement>;
   constructor(private host: ElementRef<HTMLElement>) { }
@@ -22,6 +24,12 @@ export class DetailSolutionComponent implements OnInit, AfterViewInit {
     this.trendings.push(new TrendingTopic("test", "test2"));
     this.trendings.push(new TrendingTopic("test1", "test3"));
     this.trendings.push(new TrendingTopic("test2", "test4"));
+
+    this.comments.push(new CommentSolution("test2", "test4", "fafwafwafwafwafwafwafwafafwfwa fwa fwawf wa fwaf wafwaf awfw"));
+    this.comments.push(new CommentSolution("test2", "test4", "test5"));
+    this.comments.push(new CommentSolution("test2", "test4", "test5"));
+    this.comments.push(new CommentSolution("test2", "test4", "test5"));
+    this.comments.push(new CommentSolution("test2", "test4", "test5"));
   }
 
   initCodeEditor(){

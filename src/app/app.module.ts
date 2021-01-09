@@ -18,7 +18,6 @@ import { SideNavContentComponent } from './components/side-nav-content/side-nav-
 import { ProfileModule } from './pages/profile/profile.module';
 import { NewSolutionModule } from './pages/new-solution/new-solution.module';
 import { DetailSolutionModule } from './pages/detail-solution/detail-solution.module';
-import { TextareaAutoresizeDirective } from './directives/textarea-autoresize/textarea-autoresize.directive';
 
 @NgModule({
   declarations: [
@@ -26,8 +25,7 @@ import { TextareaAutoresizeDirective } from './directives/textarea-autoresize/te
     MyHeaderComponent,
     MyInputComponent,
     SideNavComponent,
-    SideNavContentComponent,
-    TextareaAutoresizeDirective
+    SideNavContentComponent
   ],
   imports: [
     BrowserModule,

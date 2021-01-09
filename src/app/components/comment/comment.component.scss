@@ -1,3 +1,22 @@
 .comment-container {
-    border:1px solid white;
+    border: 1px solid white;
+    padding: 25px;
+    border-radius: .8rem
+}
+
+.username {
+    font-size: 15px;
+    font-family: Monserrat-SemiBold;
+    margin: 0;
+    margin-bottom: 3px;
+}
+
+.date{
+    font-size: 12px;
+    margin: 0;
+    margin-bottom: 15px;
+}
+
+.comment {
+    font-size: 14px;
 }
