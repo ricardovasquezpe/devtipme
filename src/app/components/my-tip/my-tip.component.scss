@@ -24,5 +24,40 @@
 }
 
 ::ng-deep .modal-content {
-    background-color: black !important;
+    background-color: #414040 !important;
+}
+
+::ng-deep .modal-body{
+    padding: 0;
+}
+
+.add-tip{
+    margin: 0 auto;
+    opacity: 1;
+}
+
+.continue-container{
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.detail-container{
+    margin-top: 35px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.header-container{
+    background-color: white;
+    height: 70px;
+}
+
+.super-tip-container{
+    width: 100%;
+    padding-top:45px
 }

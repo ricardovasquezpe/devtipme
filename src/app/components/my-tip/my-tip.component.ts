@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-my-tip',
@@ -30,19 +30,19 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class MyTipComponent {
 
-  title = 'appBootstrap';
-  
   closeResult: string;
-  
   showAddIcon: boolean = false;
+  initalTip: number = 1;
+  modalReference: NgbModalRef;
+
   constructor(private modalService: NgbModal) {}
     
   open(content) {
-    this.modalService.open(content, {
+    this.modalReference = this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title', 
       size: 'sm', 
-      windowClass: 'add-modal'
-  }).result.then((result) => {
+      windowClass: 'add-modal'});
+    this.modalReference.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -67,4 +67,12 @@ export class MyTipComponent {
     this.showAddIcon = false;
   }
 
+  addTip(){
+    this.initalTip++;
+  }
+
+  continue(){
+    this.initalTip = 1;
+    this.modalReference.close();
+  }
 }

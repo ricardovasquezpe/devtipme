@@ -4,16 +4,20 @@
 </div>
 
 <ng-template #mymodal let-modal>
-    <!--div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Bootstrap Modal</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">×</span>
-      </button>
-    </div-->
-    <div class="modal-body">
-      This is example from ItSolutionStuff.com
+  <div class="modal-body">
+    <div class="header-container mb-4" >
+      <div class="super-tip-container text-center">
+        <div class="tip-container add-tip" (click) = "this.addTip()">
+          <p class="tip">${{this.initalTip}}</p>
+        </div>
+      </div>
     </div>
-    <!--div class="modal-footer">
-      <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">Ok</button>
-    </div-->
+    <div class="detail-container">
+      <p class="text-detail" style="font-size: 13px;">With yout Tip the Developer can eat one day more</p>
+    </div>
+    <div class="continue-container float-right" (click)="this.continue()">
+      <p class="m-0">Continue</p>
+      <span class="material-icons">keyboard_arrow_right</span>
+    </div>
+  </div>
 </ng-template>
