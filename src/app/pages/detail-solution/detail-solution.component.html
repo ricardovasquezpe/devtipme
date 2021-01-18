@@ -48,8 +48,11 @@
     </div>
     <div class="row container-comments">
         <div class="col-sm-12">
-            <div class="mb-4">
+            <div class="mb-1">
                 <app-my-textarea [placeHolder] = "'Enter a comment...'"></app-my-textarea>
+            </div>
+            <div class="mb-4 text-center">
+                <app-my-button [text] ="'POST'" [width] ="'200px'"></app-my-button>
             </div>
             <div class="mb-4">
                 <app-comment *ngFor="let comment of comments; index as i; first as isFirst" [comment]="comment"></app-comment>
