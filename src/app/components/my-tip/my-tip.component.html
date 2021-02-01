@@ -4,7 +4,7 @@
 </div>
 
 <ng-template #mymodal let-modal>
-  <div class="modal-body">
+  <div class="modal-body" *ngIf="this.showTipAmountContent">
     <div class="header-container mb-4" >
       <div class="super-tip-container text-center">
         <div class="tip-container add-tip" (click) = "this.addTip()">
@@ -18,6 +18,16 @@
     <div class="continue-container float-right" (click)="this.continue()">
       <p class="m-0">Continue</p>
       <span class="material-icons">keyboard_arrow_right</span>
+    </div>
+  </div>
+  <div class="modal-body" *ngIf="this.showPayTipContent">
+    <div class="detail-container-pay">
+      <p class="text-detail" style="font-size: 13px;">You can tip with these payment methods</p>
+      <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+    </div>
+    <div class="continue-container float-left" (click)="this.return()">
+      <span class="material-icons">keyboard_arrow_left</span>
+      <p class="m-0">Return</p>
     </div>
   </div>
 </ng-template>
