@@ -2,6 +2,8 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { ModalDismissReasons, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { IPayPalConfig, ICreateOrderRequest, IPayPalButtonStyle } from 'ngx-paypal';
+import { environment } from './../../../environments/environment';
+import { Constants } from './../../utils/constants';
 
 @Component({
   selector: 'app-my-tip',
@@ -46,8 +48,8 @@ export class MyTipComponent {
 
   private initConfig(): void {
     this.payPalConfig = {
-    currency: 'USD',
-    clientId: 'AaLifL9xZQYOxIeqUVxYTrGIm_bWY1m9KWPKaRt_4PptuQLNZm74V9jLC8ZlKFS53wvP-_7VZm8hm1zz',
+    currency: Constants.paypalCurrency,
+    clientId: environment.paypal.clientId,
     createOrderOnClient: (data) => <ICreateOrderRequest>{
       intent: 'CAPTURE',
       purchase_units: [{
@@ -75,13 +77,11 @@ export class MyTipComponent {
       console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
     },
     onCancel: (data, actions) => {
-      console.log('OnCancel', data, actions);
     },
     onError: err => {
       console.log('OnError', err);
     },
     onClick: (data, actions) => {
-      console.log('onClick', data, actions);
     },
   };
   }
