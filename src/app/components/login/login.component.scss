@@ -1,0 +1,25 @@
+.button-login{
+    width: 100%;
+    border-radius:0.8rem;
+}
+
+.button-login:active{
+    outline: none;
+    border: 0px solid solid;
+}
+
+.button-login:visited{
+    outline: none;
+    border: 0px solid solid;
+}
+
+.title{
+    font-family:Monserrat-SemiBold;
+    font-size: 20px;
+    color: #414040;
+}
+
+.button-login:hover{
+    background-color: #414040;
+    color: white;
+}
