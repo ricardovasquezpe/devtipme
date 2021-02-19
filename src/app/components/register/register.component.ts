@@ -14,7 +14,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.frmRegister = this.formBuilder.group({
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       name: ['', Validators.required],
       password: ['', Validators.required],
       repeatPassword: ['', Validators.required]
@@ -23,8 +23,13 @@ export class RegisterComponent implements OnInit {
 
   register(){
     if (this.frmRegister.invalid) {
-      return;
+        return;
     }
+
+    if(this.frmRegister.value.password != this.frmRegister.value.repeatPassword){
+        return;
+    }
+    
     console.log(this.frmRegister.value)
   }
 
