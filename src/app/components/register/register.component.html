@@ -1,0 +1,26 @@
+<div class="modal-body">
+    <form [formGroup]="frmRegister">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <p class="title">Create an Account now!</p>
+                </div>
+                <div class="col-sm-12">
+                    <app-input [type]="'text'" [name]="'email'" [formGroup]="this.frmRegister" [placeHolder]="'Enter Email'"></app-input>
+                </div>
+                <div class="col-sm-12 mt-3">
+                    <app-input [type]="'text'" [name]="'name'" [formGroup]="this.frmRegister" [placeHolder]="'Enter Name'"></app-input>
+                </div>
+                <div class="col-sm-12 mt-3">
+                    <app-input [type]="'password'" [name]="'password'" [formGroup]="this.frmRegister" [placeHolder]="'Enter Password'"></app-input>
+                </div>
+                <div class="col-sm-12 mt-3">
+                    <app-input [type]="'password'" [name]="'repeatPassword'" [formGroup]="this.frmRegister" [placeHolder]="'Repeat Password'"></app-input>
+                </div>
+                <div class="col-sm-12 mt-3">
+                    <app-button (click)="this.register()" [text]="'Register'"></app-button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

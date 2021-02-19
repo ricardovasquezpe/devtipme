@@ -1,0 +1,19 @@
+button{
+    width: 100%;
+    border-radius:0.8rem;
+}
+
+button:active{
+    outline: none;
+    border: 0px solid solid;
+}
+
+button:visited{
+    outline: none;
+    border: 0px solid solid;
+}
+
+button:hover{
+    background-color: #414040;
+    color: white;
+}

@@ -1,7 +1,3 @@
-<div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-    </button>
-</div>
 <div class="modal-body">
     <form [formGroup]="frmLogin">
         <div class="container">
@@ -16,7 +12,7 @@
                     <app-input [type]="'password'" [name]="'password'" [formGroup]="this.frmLogin" [placeHolder]="'Enter Password'"></app-input>
                 </div>
                 <div class="col-sm-12 mt-3">
-                    <button (click)="this.login()" class="button-login">Login</button>
+                    <app-button (click)="this.login()" [text]="'Login'"></app-button>
                 </div>
             </div>
         </div>

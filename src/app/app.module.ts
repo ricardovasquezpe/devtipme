@@ -21,6 +21,8 @@ import { DetailSolutionModule } from './pages/detail-solution/detail-solution.mo
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
 import { InputComponent } from './components/input/input.component';
+import { ButtonComponent } from './components/button/button.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { InputComponent } from './components/input/input.component';
     SideNavComponent,
     SideNavContentComponent,
     LoginComponent,
-    InputComponent
+    RegisterComponent,
+    InputComponent,
+    ButtonComponent
   ],
   imports: [
     BrowserModule,

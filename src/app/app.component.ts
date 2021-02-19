@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 import { NavigationService } from './services/navigation/navigation.service';
 
 @Component({
@@ -31,5 +32,9 @@ export class AppComponent {
     /*this.router.navigate(["/profile"]);
     this.navService.setShowNav(false);*/
     this.modalReference = this.modalService.open(LoginComponent, {backdrop: 'static', size: 'sm', keyboard: false, centered: true});
+  }
+
+  register(){
+    this.modalReference = this.modalService.open(RegisterComponent, {backdrop: 'static', size: 'sm', keyboard: false, centered: true});
   }
 }
