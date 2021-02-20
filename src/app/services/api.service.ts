@@ -9,6 +9,11 @@ export class ApiService {
 
     register(payload): Observable<any>{
         const headers = { 'content-type': 'application/json'}
-        return this.http.post(environment.apiUrl + 'people', JSON.stringify(payload),{'headers':headers})
+        return this.http.post(environment.apiUrl + environment.methods.createUser, JSON.stringify(payload),{'headers': headers})
+    }
+
+    login(payload): Observable<any>{
+        const headers = { 'content-type': 'application/json'}
+        return this.http.post(environment.apiUrl + environment.methods.login, JSON.stringify(payload),{'headers': headers})
     }
 }

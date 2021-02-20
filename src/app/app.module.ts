@@ -23,6 +23,7 @@ import { LoginComponent } from './components/login/login.component';
 import { InputComponent } from './components/input/input.component';
 import { ButtonComponent } from './components/button/button.component';
 import { RegisterComponent } from './components/register/register.component';
+import { ApiService } from './services/api.service';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,7 @@ import { RegisterComponent } from './components/register/register.component';
       }
     })
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

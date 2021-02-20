@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ApiService } from '../../services/api.service'
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +12,9 @@ export class RegisterComponent implements OnInit {
 
   frmRegister: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,
+    private apiService:ApiService,
+    public activeModal: NgbActiveModal) { }
 
   ngOnInit(): void {
     this.frmRegister = this.formBuilder.group({
@@ -30,7 +34,18 @@ export class RegisterComponent implements OnInit {
         return;
     }
     
-    console.log(this.frmRegister.value)
+    this.apiService.register(this.frmRegister.value).subscribe(res => {
+      if(res.error){
+        console.log(res.error)
+        return;
+      }
+
+      this.activeModal.close({
+          "completed":true,
+          "email": this.frmRegister.value.email,
+          "password": this.frmRegister.value.password
+      });
+    }, error => console.log('error', error));
   }
 
 }
