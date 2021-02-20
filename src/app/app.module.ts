@@ -24,6 +24,7 @@ import { InputComponent } from './components/input/input.component';
 import { ButtonComponent } from './components/button/button.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ApiService } from './services/api.service';
+import { SessionManager } from './services/SessionManager';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,7 @@ import { ApiService } from './services/api.service';
       }
     })
   ],
-  providers: [ApiService],
+  providers: [ApiService, SessionManager],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

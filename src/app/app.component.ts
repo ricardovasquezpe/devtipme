@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
@@ -13,9 +13,12 @@ import { SessionManager } from './services/SessionManager';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   modalRegisterReference: NgbModalRef;
   modalLoginReference: NgbModalRef;
+
+  usernameOrLogin: string = "Login";
+  showRegister: boolean = true;
   
   constructor(
     public translate: TranslateService,
@@ -29,14 +32,30 @@ export class AppComponent {
     translate.setDefaultLang('en');
   }
 
+  ngOnInit(): void {
+    if(this.sessionManager.haveStorage()){
+      this.usernameOrLogin = this.sessionManager.retrieveEmail()
+      this.showRegister = false
+    }
+  }
+
   switchLang() {
     this.translate.use("es");
   }
 
   goToProfileOrLogin(){
-    /*this.router.navigate(["/profile"]);
-    this.navService.setShowNav(false);*/
-    this.modalLoginReference = this.modalService.open(LoginComponent, {size: 'sm', keyboard: false, centered: true});
+    if(this.sessionManager.haveStorage()){
+      this.router.navigate(["/profile"]);
+      this.navService.setShowNav(false);
+    } else {
+      this.modalLoginReference = this.modalService.open(LoginComponent, {size: 'sm', keyboard: false, centered: true});
+      this.modalLoginReference.result.then((result) => {
+        if(result.completed){
+          this.postLogin(result.email);
+        }
+      }, (reason) => {
+      });
+    }
   }
 
   register(){
@@ -52,10 +71,16 @@ export class AppComponent {
             console.log(res.error)
             return;
           }
-          this.sessionManager.storeToken(res.token)
+          this.sessionManager.storeNewToken(res.token, result.email);
+          this.postLogin(result.email);
         }, error => console.log('error', error));
       }
     }, (reason) => { 
     });
+  }
+
+  postLogin(email){
+    this.usernameOrLogin = email;
+    this.showRegister = false;
   }
 }

@@ -12,8 +12,8 @@
 </div>
 
 <ng-template #navContent>
-    <p class="username-login" (click)="goToProfileOrLogin()">Login</p>
-    <p class="register" (click)="register()">Register</p>
+    <p class="username-login" (click)="goToProfileOrLogin()">{{this.usernameOrLogin}}</p>
+    <p class="register" (click)="register()" *ngIf="this.showRegister">Register</p>
     <app-side-nav-content></app-side-nav-content>
 </ng-template>
 

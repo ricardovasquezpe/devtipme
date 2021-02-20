@@ -1,5 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ApiService } from 'src/app/services/api.service';
+import { SessionManager } from 'src/app/services/SessionManager';
+import { Constants } from './../../utils/constants';
 
 @Component({
   selector: 'app-login',
@@ -9,8 +13,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   frmLogin: FormGroup;
+  error: string;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,
+    private apiService:ApiService,
+    public activeModal: NgbActiveModal,
+    private sessionManager:SessionManager) { }
 
   ngOnInit(): void {
     this.frmLogin = this.formBuilder.group({
@@ -23,7 +31,23 @@ export class LoginComponent implements OnInit {
     if (this.frmLogin.invalid) {
       return;
     }
-    console.log(this.frmLogin.value)
+
+    this.apiService.login(this.frmLogin.value).subscribe(res => {
+      if(res.error){
+        console.log(res.error)
+        return;
+      }
+
+      this.sessionManager.storeNewToken(res.token, this.frmLogin.value.email)
+      this.activeModal.close({
+          "completed":true,
+          "email":this.frmLogin.value.email
+      });
+    }, error => {
+      if(error.status == Constants[400]){
+        this.error = "Email or Password Incorrect"
+      }
+    });
   }
 
 }

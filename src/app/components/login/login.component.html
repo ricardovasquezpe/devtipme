@@ -14,6 +14,9 @@
                 <div class="col-sm-12 mt-3">
                     <app-button (click)="this.login()" [text]="'Login'"></app-button>
                 </div>
+                <div class="col-sm-12 text-center">
+                    <p class="error">{{this.error}}</p>
+                </div>
             </div>
         </div>
     </form>
