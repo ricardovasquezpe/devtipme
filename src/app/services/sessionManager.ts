@@ -39,4 +39,8 @@ export class SessionManager {
         }
         return true
     }
+
+    clearSession(){
+        localStorage.clear()
+    }
 }

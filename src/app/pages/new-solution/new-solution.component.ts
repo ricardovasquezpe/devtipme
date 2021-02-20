@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-new-solution',
@@ -7,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewSolutionComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private apiService:ApiService) { }
 
   multimediaList = [
     {
@@ -25,6 +27,12 @@ export class NewSolutionComponent implements OnInit {
     this.multimediaList.push({
       "order": this.counter
     });
+  }
+
+  saveSolution(){
+    this.apiService.saveSolution({}).subscribe(res => {
+
+    }, error => console.log('error', error));
   }
 
 }

@@ -18,6 +18,10 @@
     font-size: 20px;
     margin-bottom: 30px;
     cursor: pointer;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .register {

@@ -16,4 +16,9 @@ export class ApiService {
         const headers = { 'content-type': 'application/json'}
         return this.http.post(environment.apiUrl + environment.methods.login, JSON.stringify(payload),{'headers': headers})
     }
+
+    saveSolution(payload): Observable<any>{
+        const headers = { 'content-type': 'application/json'}
+        return this.http.post(environment.apiUrl + environment.methods.saveSolution, JSON.stringify(payload),{'headers': headers})
+    }
 }

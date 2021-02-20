@@ -10,6 +10,7 @@ export const environment = {
   apiUrl: "http://localhost:5000/api",
   methods: {
     createUser: "/user",
-    login: "/user/login"
+    login: "/user/login",
+    saveSolution: "/v1/solution"
   }
 };
