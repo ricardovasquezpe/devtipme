@@ -12,7 +12,7 @@ import { appReducers } from './app.reducer';
 import { SearchModule } from './pages/search/search.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { SideNavContentComponent } from './components/side-nav-content/side-nav-content.component';
 import { ProfileModule } from './pages/profile/profile.module';
@@ -25,6 +25,7 @@ import { ButtonComponent } from './components/button/button.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ApiService } from './services/api.service';
 import { SessionManager } from './services/SessionManager';
+import { AuthInterceptor } from './services/AuthInterceptor';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,13 @@ import { SessionManager } from './services/SessionManager';
       }
     })
   ],
-  providers: [ApiService, SessionManager],
+  providers: [
+    ApiService, 
+    SessionManager, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -16,7 +16,7 @@ export class SessionManager {
 
     retrieveToken() {
         let storedToken:string = localStorage.getItem(this.jsonWebToken);
-        if(!storedToken) throw 'no token found';
+        if(!storedToken) return null;
         return storedToken;
     }
 

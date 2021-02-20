@@ -16,14 +16,7 @@ import { NewSolutionComponent } from './new-solution.component';
 		CommonModule,
 		NewSolutionRoutingModule,
 		ComponentsModule
-	],
-	providers: [
-		{
-		  provide: HTTP_INTERCEPTORS,
-		  useClass: AuthInterceptor,
-		  multi: true
-		}
-	],
+	]
 })
 ​
 export class NewSolutionModule { }

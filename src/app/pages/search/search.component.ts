@@ -27,7 +27,7 @@ import { TrendingTopic } from "src/app/models/trendingtopic.model";
 
     ngOnInit() {
       this.store.subscribe( state => {
-        console.log(state);
+        //console.log(state);
       });
 
       this.solutions.push(new CardSolution("test", "test2"));

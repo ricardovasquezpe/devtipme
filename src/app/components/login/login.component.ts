@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
 
       this.sessionManager.storeNewToken(res.token, this.frmLogin.value.email)
       this.activeModal.close({
-          "completed" : true,
+          "completed" :true,
           "email" : this.frmLogin.value.email
       });
     }, error => {
