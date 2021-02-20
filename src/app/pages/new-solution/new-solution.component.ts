@@ -30,9 +30,23 @@ export class NewSolutionComponent implements OnInit {
   }
 
   saveSolution(){
+    if(!this.validate()){
+
+      return;
+    }
+    
     this.apiService.saveSolution({}).subscribe(res => {
 
-    }, error => console.log('error', error));
+    }, error => {
+      console.log(error)
+    });
+  }
+
+  validate(){
+    var result = true;
+
+
+    return result;
   }
 
 }

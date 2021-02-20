@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.reducer';
 import { NavigationService } from 'src/app/services/navigation/navigation.service';
 import { SessionManager } from 'src/app/services/SessionManager';
+import * as actions from 'src/app/actions/auth/auth.action';
 
 @Component({
   selector: 'app-side-nav-content',
@@ -29,18 +32,24 @@ export class SideNavContentComponent implements OnInit {
 
   constructor(private router: Router, 
     private navService: NavigationService,
-    private sessionManager:SessionManager) { }
+    private sessionManager:SessionManager,
+    private store: Store<AppState>) { }
 
   ngOnInit(): void {
     this.navItems = this.navItemsNoUser;
-    if(this.sessionManager.haveStorage()){
-      this.navItems = this.navItemsUser;
-    }
+    this.store.subscribe( state => {
+      if(state.auth){
+        this.navItems = this.navItemsUser;
+      } else {
+        this.navItems = this.navItemsNoUser;
+      }
+    });
   }
 
   onNavigationSelection(navItem: any) {
     if(navItem.label == "Logout"){
       this.sessionManager.clearSession();
+      this.store.dispatch(actions.clean());
     } else {
       this.navService.setShowNav(false);
       this.router.navigate([navItem.route]);

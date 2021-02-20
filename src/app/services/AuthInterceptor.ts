@@ -3,6 +3,7 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { Constants } from '../utils/constants';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,13 +14,13 @@ export class AuthInterceptor implements HttpInterceptor {
     let request = req;
     request = req.clone({ headers: request.headers.set('Content-Type', 'application/json') });
     if (token) {
-      request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });
+      request = request.clone({ headers: request.headers.set('Authorization', token) });
     }
     
     return next.handle(request).pipe(
       catchError((err: HttpErrorResponse) => {
-        if (err.status === 401) {
-          this.router.navigateByUrl('/err401');
+        if (err.status === Constants[403]) {
+          this.router.navigateByUrl('/');
         }
         return throwError( err );
       })

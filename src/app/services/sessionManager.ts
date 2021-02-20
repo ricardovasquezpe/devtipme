@@ -22,22 +22,27 @@ export class SessionManager {
 
     retrieveExpireTime(){
         let expireTime:string = localStorage.getItem(this.expireTime);
-        if(!expireTime) throw 'no token found';
-        return moment.unix(Number(expireTime)).format("DD-MM-YYYY H:m:s");
+        if(!expireTime) throw 'no time found';
+        return new Date(Number(expireTime) * 1000)
     }
 
     retrieveEmail(){
         let storedEmail:string = localStorage.getItem(this.email);
-        if(!storedEmail) throw 'no token found';
+        if(!storedEmail) throw 'no email found';
         return storedEmail;
     }
 
-    haveStorage(){
+    verifyAuth(){
         let storedToken:string = localStorage.getItem(this.jsonWebToken);
         if(!storedToken){
             return false
         }
-        return true
+        var now = new Date();
+        if(now > this.retrieveExpireTime()){
+            return false;
+        }
+
+        return true;
     }
 
     clearSession(){

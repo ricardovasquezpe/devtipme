@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
+import { AppState } from './app.reducer';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ApiService } from './services/api.service';
 import { NavigationService } from './services/navigation/navigation.service';
 import { SessionManager } from './services/SessionManager';
+import * as actions from 'src/app/actions/auth/auth.action';
 
 @Component({
   selector: 'app-root',
@@ -17,8 +20,10 @@ export class AppComponent implements OnInit{
   modalRegisterReference: NgbModalRef;
   modalLoginReference: NgbModalRef;
 
-  usernameOrLogin: string = "Login";
+  username: string = "";
   showRegister: boolean = true;
+  showLogin: boolean = true;
+  showUserName: boolean = false;
   
   constructor(
     public translate: TranslateService,
@@ -26,16 +31,39 @@ export class AppComponent implements OnInit{
     private navService: NavigationService,
     private modalService: NgbModal,
     private apiService:ApiService,
-    private sessionManager:SessionManager
+    private sessionManager:SessionManager,
+    private store: Store<AppState>
   ) {
     translate.addLangs(['en', 'es']);
     translate.setDefaultLang('en');
   }
 
   ngOnInit(): void {
-    if(this.sessionManager.haveStorage()){
-      this.usernameOrLogin = this.sessionManager.retrieveEmail()
-      this.showRegister = false
+    this.verifyUser();
+    this.verifyStorageAuth();
+  }
+
+  verifyUser(){
+    this.store.subscribe( state => {
+      if(state.auth){
+        this.username = this.sessionManager.retrieveEmail()
+        this.showRegister = false;
+        this.showLogin = false;
+        this.showUserName = true;
+      } else {
+        this.username = "";
+        this.showRegister = true;
+        this.showLogin = true;
+        this.showUserName = false;
+      }
+    });
+  }
+
+  verifyStorageAuth(){
+    if(this.sessionManager.verifyAuth()){
+      this.store.dispatch(actions.verify({ verify: true }));
+    } else {
+      this.store.dispatch(actions.verify({ verify: false }));
     }
   }
 
@@ -43,19 +71,19 @@ export class AppComponent implements OnInit{
     this.translate.use("es");
   }
 
-  goToProfileOrLogin(){
-    if(this.sessionManager.haveStorage()){
-      this.router.navigate(["/profile"]);
-      this.navService.setShowNav(false);
-    } else {
-      this.modalLoginReference = this.modalService.open(LoginComponent, {size: 'sm', keyboard: false, centered: true});
+  goToProfile(){
+    this.router.navigate(["/profile"]);
+    this.navService.setShowNav(false);
+  }
+
+  goToLogin(){
+    this.modalLoginReference = this.modalService.open(LoginComponent, {size: 'sm', keyboard: false, centered: true});
       this.modalLoginReference.result.then((result) => {
         if(result.completed){
-          this.postLogin(result.email);
+          this.store.dispatch(actions.set());
         }
       }, (reason) => {
-      });
-    }
+    });
   }
 
   register(){
@@ -72,15 +100,10 @@ export class AppComponent implements OnInit{
             return;
           }
           this.sessionManager.storeNewToken(res.token, result.email);
-          this.postLogin(result.email);
+          this.store.dispatch(actions.set());
         }, error => console.log('error', error));
       }
     }, (reason) => { 
     });
-  }
-
-  postLogin(email){
-    this.usernameOrLogin = email;
-    this.showRegister = false;
   }
 }
