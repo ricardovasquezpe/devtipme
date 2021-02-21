@@ -26,8 +26,8 @@ import { TrendingTopic } from "src/app/models/trendingtopic.model";
       }
 
     ngOnInit() {
-      this.store.subscribe( state => {
-        //console.log(state);
+      this.store.select('search').subscribe((data) => {
+        console.log(data);
       });
 
       this.solutions.push(new CardSolution("test", "test2"));

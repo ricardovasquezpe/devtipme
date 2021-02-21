@@ -37,8 +37,8 @@ export class SideNavContentComponent implements OnInit {
 
   ngOnInit(): void {
     this.navItems = this.navItemsNoUser;
-    this.store.subscribe( state => {
-      if(state.auth){
+    this.store.select('auth').subscribe((data) => {
+      if(data){
         this.navItems = this.navItemsUser;
       } else {
         this.navItems = this.navItemsNoUser;
@@ -50,6 +50,7 @@ export class SideNavContentComponent implements OnInit {
     if(navItem.label == "Logout"){
       this.sessionManager.clearSession();
       this.store.dispatch(actions.clean());
+      this.router.navigate(['/']);
     } else {
       this.navService.setShowNav(false);
       this.router.navigate([navItem.route]);

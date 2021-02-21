@@ -44,8 +44,8 @@ export class AppComponent implements OnInit{
   }
 
   verifyUser(){
-    this.store.subscribe( state => {
-      if(state.auth){
+    this.store.select('auth').subscribe((data) => {
+      if(data){
         this.username = this.sessionManager.retrieveEmail()
         this.showRegister = false;
         this.showLogin = false;
