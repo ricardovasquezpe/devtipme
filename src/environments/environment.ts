@@ -11,6 +11,7 @@ export const environment = {
   methods: {
     createUser: "/user",
     login: "/user/login",
-    saveSolution: "/v1/solution"
+    saveSolution: "/v1/solution",
+    uploadFile: "/v1/solution/uploadfile"
   }
 };

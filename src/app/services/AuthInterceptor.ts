@@ -19,7 +19,7 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token: string = this.sessionManager.retrieveToken();
     let request = req;
-    request = req.clone({ headers: request.headers.set('Content-Type', 'application/json') });
+    //request = req.clone({ headers: request.headers.set('Content-Type', 'application/json') });
     if (token) {
       if(!this.sessionManager.verifyAuth()){
         this.sessionManager.clearSession()

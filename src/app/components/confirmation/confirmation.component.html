@@ -1,0 +1,19 @@
+<div class="modal-body">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <p class="title" [ngClass]="{'title': true, 'title-error': titleError}">{{this.title}}</p>
+            </div>
+            <div class="col-sm-12 text-center description">
+                {{this.text}}
+            </div>
+            <div class="col-sm-12 text-center mt-3" *ngIf="this.showYesNoButtons">
+                <button (click)="onClickOptionNo()">No</button>
+                <button (click)="onClickOptionyes()">Yes</button>
+            </div>
+            <div class="col-sm-12 text-center mt-3" *ngIf="this.showOkbutton">
+                <button (click)="onClickOptionOk()">OK</button>
+            </div>
+        </div>
+    </div>
+</div>

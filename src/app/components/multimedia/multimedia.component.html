@@ -10,9 +10,9 @@
         </div>
     </div>
     
-    <div *ngIf="textAreaShow">
+    <div [hidden]="!textAreaShow">
         <div style="width: 95%;display: inline-block">
-            <app-my-textarea></app-my-textarea>
+            <app-my-textarea #myTextArea></app-my-textarea>
         </div>
         <div style="width: 5%;display: inline-block;vertical-align: top;">
             <span class="material-icons input-icon-remove" (click)="selectOption(4)">delete</span>

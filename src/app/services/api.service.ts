@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from './../../environments/environment';
@@ -18,6 +18,16 @@ export class ApiService {
     }
 
     saveSolution(payload): Observable<any>{
-        return this.http.post(environment.apiUrl + environment.methods.saveSolution, JSON.stringify(payload));
+        const headers = { 'content-type': 'application/json'}
+        return this.http.post(environment.apiUrl + environment.methods.saveSolution, JSON.stringify(payload),{'headers': headers});
+    }
+
+    uploadFile(payload): Observable<any>{
+        return this.http.post(environment.apiUrl + environment.methods.uploadFile, payload);
+    }
+
+    async uploadFileAsync(payload) {
+        let data = await this.http.post(environment.apiUrl + environment.methods.uploadFile, payload).toPromise();
+        return data;
     }
 }

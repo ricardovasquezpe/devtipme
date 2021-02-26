@@ -6,6 +6,7 @@ import { AppState } from 'src/app/app.reducer';
 import * as actions from 'src/app/actions/multimedia/multimedia.action';
 import { Multimedia } from 'src/app/models/multimedia.model';
 import * as moment from 'moment'
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-multimedia',
@@ -23,13 +24,17 @@ export class MultimediaComponent implements OnInit, AfterViewInit  {
   codeEditorShow:boolean = false;
   urlImage:String | ArrayBuffer = "";
   aceEditor: ace.Ace.Editor;
-  @ViewChild("editor") private editor: ElementRef<HTMLElement>;
-
   typeSelected:number = 0;
   internalId: string = "";
+  urlFileUploaded:string = "";
+
+
+  @ViewChild("editor") private editor: ElementRef<HTMLElement>;
+  @ViewChild('myTextArea') myTextArea;
 
   constructor(private host: ElementRef<HTMLElement>,
-    private store: Store<AppState>) { }
+    private store: Store<AppState>,
+    private apiService:ApiService ) { }
 
   ngOnInit(): void {
     this.internalId = moment().unix().toString();
@@ -106,16 +111,19 @@ export class MultimediaComponent implements OnInit, AfterViewInit  {
         this.urlImage = reader.result; 
         this.selectOption(2);
     }
+
+    let uploadedFile = (event.target as HTMLInputElement).files[0];
+    this.uploadFile(uploadedFile);
   }
 
   getContentByType(type:number){
     switch(type) { 
       case 1: {
-        return "text";
+        return this.myTextArea.text;
         break;
       }
       case 2: {
-        return "image uploaded";
+        return this.urlFileUploaded;
         break;
       }
       case 3: {
@@ -129,11 +137,15 @@ export class MultimediaComponent implements OnInit, AfterViewInit  {
     this.store.dispatch(actions.add({ multimedia: new Multimedia(this.internalId, this.getContentByType(this.typeSelected), this.typeSelected, 0) }));
   }
 
-  test(){
-    console.log(this.aceEditor.getValue());
-  }
-
   ngOnDestroy() {
     this.eventsSubscription.unsubscribe();
+  }
+
+  uploadFile(uploadedFile){
+    var formData: any = new FormData();
+    formData.append('file', uploadedFile);
+    this.apiService.uploadFile(formData).subscribe(res => {
+      this.urlFileUploaded = res.fileName;
+    });
   }
 }

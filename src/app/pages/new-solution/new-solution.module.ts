@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { MultimediaComponent } from 'src/app/components/multimedia/multimedia.component';
-import { AuthInterceptor } from 'src/app/services/AuthInterceptor';
 import { NewSolutionRoutingModule } from './new-solution-routing.module';
 import { NewSolutionComponent } from './new-solution.component';
 ​
@@ -15,7 +14,8 @@ import { NewSolutionComponent } from './new-solution.component';
 	imports: [
 		CommonModule,
 		NewSolutionRoutingModule,
-		ComponentsModule
+		ComponentsModule,
+		FormsModule
 	]
 })
 ​
