@@ -30,6 +30,7 @@
     "jquery": "^3.5.1",
     "material-icons": "^0.5.2",
     "moment": "^2.29.1",
+    "ngx-chips": "^2.2.2",
     "ngx-paypal": "^7.0.0",
     "ngx-tags-input": "^2.0.1",
     "popper.js": "^1.16.1",

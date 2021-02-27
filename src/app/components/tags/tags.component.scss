@@ -1,0 +1,35 @@
+.tags {
+    color: #fff;
+    background-color: var(--trending-badge-background-color);
+    border-radius: 0.8rem;
+    font-weight: inherit;
+    padding: 5px 10px;
+    font-size: 14px;
+    display: table;
+}
+
+.text{
+    display: inline-block;
+    margin:0;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.remove{
+    display: inline-block;
+    font-size: 17px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+input{
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.container-tags{
+    display: inline-block;
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-bottom: 3px;
+}

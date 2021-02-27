@@ -24,6 +24,7 @@ export class NewSolutionComponent implements OnInit {
       "order": 1
     }
   ];
+  solutionTags = [];
 
   constructor(private apiService:ApiService,
     private store: Store<AppState>,
