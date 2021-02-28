@@ -6,22 +6,23 @@ import { Component, Input, OnInit } from "@angular/core";
     styleUrls: ['./tags.component.scss']
   })
   export class TagsComponent implements OnInit {
+    @Input() sharedListTags:Array<any> = [];
 
-    tags:Array<any> = [];
+    //tags:Array<any> = [];
     inputText:string = "";
 
     ngOnInit() {
-      this.tags.push({
-          text: "Hola"
-      })
     }
 
     remove(index){
-      this.tags.splice(index, 1);
+      this.sharedListTags.splice(index, 1);
     }
 
     insertTag(){
-      this.tags.push({text:this.inputText});
+      if(this.inputText.replace(/\s/g, "") == ""){
+        return;
+      }
+      this.sharedListTags.push(this.inputText.trim());
       this.inputText = "";
     }
   }

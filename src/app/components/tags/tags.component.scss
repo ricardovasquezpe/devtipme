@@ -20,11 +20,34 @@
     font-size: 17px;
     margin-left: 5px;
     cursor: pointer;
+    opacity: 0.3;
+}
+
+.remove:hover{
+    opacity: 1;
 }
 
 input{
     display: inline-block;
-    margin-left: 10px;
+    border-radius: 0.8rem;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left:10px;
+    padding-right:10px;
+    font-size:14px;
+    display: table-cell;
+    vertical-align: middle;
+    margin-top: -26px;
+    margin-left: 5px;
+    background-color: #414040;
+    border:0px solid transparent;
+    color:white
+}
+
+input:focus {
+    outline: none;
+    border: 0px solid solid;
+    color:white;
 }
 
 .container-tags{
@@ -32,4 +55,8 @@ input{
     margin-left: 2px;
     margin-right: 2px;
     margin-bottom: 3px;
+}
+
+.container-master{
+    display: table;
 }

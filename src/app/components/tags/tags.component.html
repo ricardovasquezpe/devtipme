@@ -1,7 +1,9 @@
-<div class="container-tags" *ngFor="let tag of tags; let i = index">
-    <span class="badge tags" >
-        <p class="text">{{tag.text}}</p> 
-        <span class="material-icons remove" (click)="remove(i)">close</span>
-    </span>
+<div class="container-master">
+    <div class="container-tags" *ngFor="let tag of this.sharedListTags; let i = index">
+        <span class="badge tags">
+            <p class="text">{{tag}}</p> 
+            <span class="material-icons remove" (click)="remove(i)">close</span>
+        </span>
+    </div>
+    <input type="text" [(ngModel)]="this.inputText" (keyup.enter)="this.insertTag()" placeholder="Insert a tag" maxlength="20">
 </div>
-<input type="text" [(ngModel)]="this.inputText" (keyup.enter)="this.insertTag()">

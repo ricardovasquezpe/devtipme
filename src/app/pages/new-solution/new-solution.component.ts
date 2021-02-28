@@ -67,7 +67,7 @@ export class NewSolutionComponent implements OnInit {
   }
 
   getSolutionStruct(){
-    let solution = new Solution(this.title.trim(), this.multimediaFinalList, [""]);
+    let solution = new Solution(this.title.trim(), this.multimediaFinalList, this.solutionTags);
     return solution;
   }
 
@@ -93,6 +93,10 @@ export class NewSolutionComponent implements OnInit {
         result = false;
       }
     });
+
+    if(this.solutionTags.length == 0){
+      return false;
+    }
 
     return result;
   }
