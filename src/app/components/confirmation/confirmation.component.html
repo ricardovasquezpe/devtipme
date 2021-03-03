@@ -8,8 +8,10 @@
                 {{this.text}}
             </div>
             <div class="col-sm-12 text-center mt-3" *ngIf="this.showYesNoButtons">
-                <button (click)="onClickOptionNo()">No</button>
-                <button (click)="onClickOptionyes()">Yes</button>
+                <div class="row">
+                    <div class="col-sm-6"><button (click)="onClickOptionNo()">No</button></div>
+                    <div class="col-sm-6"><button (click)="onClickOptionyes()">Yes</button></div>
+                </div>
             </div>
             <div class="col-sm-12 text-center mt-3" *ngIf="this.showOkbutton">
                 <button (click)="onClickOptionOk()">OK</button>

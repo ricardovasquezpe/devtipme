@@ -12,6 +12,7 @@ export const environment = {
     createUser: "/user",
     login: "/user/login",
     saveSolution: "/v1/solution",
-    uploadFile: "/v1/solution/uploadfile"
+    uploadFile: "/v1/solution/uploadfile",
+    findSolution: "/solution/find"
   }
 };

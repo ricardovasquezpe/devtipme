@@ -13,9 +13,9 @@ export class ProfileComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-      this.solutions.push(new CardSolution("test", "test2"));
+      /*this.solutions.push(new CardSolution("test", "test2"));
       this.solutions.push(new CardSolution("test1", "test3"));
-      this.solutions.push(new CardSolution("test2", "test4"));
+      this.solutions.push(new CardSolution("test2", "test4"));*/
   }
 
 }

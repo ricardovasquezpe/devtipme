@@ -41,6 +41,7 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
     this.verifyUser();
     this.verifyStorageAuth();
+    this.verifySearch();
   }
 
   verifyUser(){
@@ -56,6 +57,12 @@ export class AppComponent implements OnInit{
         this.showLogin = true;
         this.showUserName = false;
       }
+    });
+  }
+
+  verifySearch(){
+    this.store.select('search').subscribe((data) => {
+      this.router.navigate(["/search"]);
     });
   }
 

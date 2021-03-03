@@ -7,8 +7,7 @@ import { Component, Input, OnInit } from "@angular/core";
   })
   export class TagsComponent implements OnInit {
     @Input() sharedListTags:Array<any> = [];
-
-    //tags:Array<any> = [];
+    
     inputText:string = "";
 
     ngOnInit() {

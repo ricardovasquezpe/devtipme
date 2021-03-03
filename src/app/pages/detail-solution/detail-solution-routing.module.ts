@@ -4,7 +4,7 @@ import { DetailSolutionComponent } from './detail-solution.component';
 
 const detailSolutionRoutes: Routes = [
   {
-    path: 'detail-solution',
+    path: 'detail-solution/:id',
     component: DetailSolutionComponent
   }
 ];

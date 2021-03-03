@@ -26,8 +26,8 @@ export class ApiService {
         return this.http.post(environment.apiUrl + environment.methods.uploadFile, payload);
     }
 
-    async uploadFileAsync(payload) {
-        let data = await this.http.post(environment.apiUrl + environment.methods.uploadFile, payload).toPromise();
-        return data;
+    findSolutions(payload): Observable<any>{
+        const headers = { 'content-type': 'application/json'}
+        return this.http.post(environment.apiUrl + environment.methods.findSolution, JSON.stringify(payload),{'headers': headers})
     }
 }
