@@ -1,43 +1,27 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
-            <p class="author">TheBugKiller</p>
-            <p class="date">Dec. 26</p>
+            <p class="author">{{this.userName}}</p>
+            <p class="date">{{this.shortNameDate}}</p>
         </div>
         <div class="col-sm-3 text-right">
             <!--span class="material-icons" style="font-size: 35px;">delete</span-->
-            <app-my-tip style="display: inline-block;"></app-my-tip>
+            <app-my-tip [amount]="this.amount" style="display: inline-block;"></app-my-tip>
         </div>
     </div>
     <hr class="divider">
     <div class="row mb-5">
         <div class="col-sm-1 vertical-align text-center">
-            <span class="material-icons return-icon">keyboard_arrow_left</span>
+            <span class="material-icons return-icon" (click)="this.onBack()">keyboard_arrow_left</span>
         </div>
         <div class="col-sm-11 vertical-align">
-            <p class="title">Error in java file when creating a new Service are in the same page following  patterns like bloc patter when fafwaafw afwfwafwafwa</p>
+            <p class="title">{{this.title}}</p>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <div class="text-solution mb-4">
-                <p>afwfwafwafwafwa fwafwafwafwafwafwa fwafwafwafwafwaawffwafwa afwfwafwafwafwawagwagwagwa awf awggwagwawag wa awawf wafawafwfwa wafwafwawaf</p>
-            </div>
-
-            <div class="image-solution mb-4">
-                <img src="https://johnpapa.net/content/images/2017/11/sxs-index-1.png">
-            </div>
-
-            <div class="text-solution mb-4">
-                <p>afwfwafwafwafwa fwafwafwafwafwafwa fwafwafwafwafwaawffwafwa afwfwafwafwafwawagwagwagwa awf awggwagwawag wa awawf wafawafwfwa wafwafwawaf</p>
-            </div>
-
-            <div class="code-solution mb-4">
-                <div class="app-ace-editor" #editor style="width: 100%;height: 350px;"></div>
-            </div>
-
-            <div class="text-solution mb-4">
-                <p>afwfwafwafwafwa fwafwafwafwafwafwa fwafwafwafwafwaawffwafwa afwfwafwafwafwawagwagwagwa awf awggwagwawag wa awawf wafawafwfwa wafwafwawaf</p>
+            <div class="text-solution mb-4 text-center" *ngFor="let cont of this.listContent; index as i; first as isFirst">
+                <app-content [content]="cont.content" [type]="cont.type"></app-content>
             </div>
         </div>
     </div>
@@ -48,11 +32,11 @@
     </div>
     <div class="row container-comments">
         <div class="col-sm-12">
-            <div class="mb-1">
-                <app-my-textarea [placeHolder] = "'Enter a comment...'"></app-my-textarea>
+            <div class="mb-1" *ngIf="this.showPostComment">
+                <app-my-textarea [placeHolder] = "'Enter a comment...'" #comment></app-my-textarea>
             </div>
-            <div class="mb-4 text-center">
-                <app-my-button [text] ="'POST'" [width] ="'200px'"></app-my-button>
+            <div class="mb-4 text-center" *ngIf="this.showPostComment">
+                <app-my-button [text] ="'POST'" [width] ="'200px'" (click)="this.postcomment()"></app-my-button>
             </div>
             <div class="mb-4">
                 <app-comment *ngFor="let comment of comments; index as i; first as isFirst" [comment]="comment"></app-comment>

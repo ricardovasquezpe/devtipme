@@ -1,44 +1,108 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import * as ace from "ace-builds";
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { TrendingTopic } from 'src/app/models/trendingtopic.model';
 import { CommentSolution } from 'src/app/models/commentsolution.model';
+import { ApiService } from 'src/app/services/api.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AppState } from 'src/app/app.reducer';
+import { Store } from '@ngrx/store';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-detail-solution',
   templateUrl: './detail-solution.component.html',
   styleUrls: ['./detail-solution.component.scss']
 })
-export class DetailSolutionComponent implements OnInit, AfterViewInit {
-  aceEditor: ace.Ace.Editor;
+export class DetailSolutionComponent implements OnInit {
+  
   trendings: TrendingTopic[] = [];
   comments: CommentSolution[] = [];
+  listContent: Array<any> = [];
+  amount: number = 0;
+  showPostComment: boolean = false;
+  solutionId:string = "";
+  shortNameDate: string = "";
+  title: string = "";
+  userName: string = "";
 
-  @ViewChild("editor") private editor: ElementRef<HTMLElement>;
-  constructor(private host: ElementRef<HTMLElement>) { }
+  @ViewChild('comment') commentTextArea;
+  constructor(private apiService:ApiService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private store: Store<AppState>) { }
 
   ngOnInit(): void {
+    window.scroll(0,0);
+    this.solutionId = this.route.snapshot.paramMap.get('id');
+    this.apiService.getSolutionById(this.solutionId).subscribe(res => {
+      this.listContent = res.solution.content;
+      this.addTrendngTopics(res.solution.topics);
+      this.amount = res.amount;
+      this.shortNameDate = this.getShortNameDate(res.solution.createdAt);
+      this.title = res.solution.title;
+      this.userName = res.solution.userId;
+    }, error => {
+      console.log(error)
+    });
+
+    this.apiService.findCommentsBySolutionId(this.solutionId).subscribe(res => {
+      this.addComments(res);
+    }, error => {
+      console.log(error)
+    });
+
+    this.verifyAuth();
   }
 
-  ngAfterViewInit(){
-    this.initCodeEditor();
-    this.trendings.push(new TrendingTopic("test", "test2"));
-    this.trendings.push(new TrendingTopic("test1", "test3"));
-    this.trendings.push(new TrendingTopic("test2", "test4"));
-
-    this.comments.push(new CommentSolution("test2", "test4", "fafwafwafwafwafwafwafwafafwfwa fwa fwawf wa fwaf wafwaf awfw"));
-    this.comments.push(new CommentSolution("test2", "test4", "test5"));
-    this.comments.push(new CommentSolution("test2", "test4", "test5"));
-    this.comments.push(new CommentSolution("test2", "test4", "test5"));
-    this.comments.push(new CommentSolution("test2", "test4", "test5"));
+  addComments(comments){
+    comments.forEach(element => {
+      this.comments.push(new CommentSolution(element.userId, new Date(element.createdAt), element.comment));
+    });
   }
 
-  initCodeEditor(){
-    ace.config.set("fontSize", "15px");
-    ace.config.set('basePath', 'https://unpkg.com/ace-builds@1.4.12/src-noconflict');
-    this.aceEditor = ace.edit(this.editor.nativeElement);
-    this.aceEditor.setTheme('ace/theme/chaos');
-    this.aceEditor.setReadOnly(true);
-    this.aceEditor.session.setValue("<h1>Ace Editor works great in Angular!</h1>");
+  addTrendngTopics(topics){
+    topics.forEach(element => {
+      this.trendings.push(new TrendingTopic(element, "/search/" + element));
+    });
   }
 
+  getShortNameDate(date:string){
+    var dateObj = new Date(date)
+    return moment(dateObj).format('MMM') + "." + " " + moment(dateObj).format('DD');
+  }
+
+  verifyAuth(){
+    this.store.select('auth').subscribe((data) => {
+      if(data){
+        this.showPostComment = true;
+      } else {
+        this.showPostComment = false;
+      }
+    });
+  }
+
+  onBack(){
+    this.router.navigateByUrl('/search');
+  }
+
+  postcomment(){
+    if(this.commentTextArea.text.replace(/\s/g, "") == ""){
+      return;
+    }
+
+    if(this.commentTextArea.text.trim().length <= 10){
+      return;
+    }
+
+    var data = {
+      "comment": this.commentTextArea.text.trim(),
+      "solutionId": this.solutionId
+    }
+
+    this.apiService.postComment(data).subscribe(res => {
+      this.comments.push(new CommentSolution(res.comment.userId, new Date(res.comment.createdAt), res.comment.comment));
+      this.commentTextArea.text = "";
+    }, error => {
+      console.log(error)
+    });
+  }
 }

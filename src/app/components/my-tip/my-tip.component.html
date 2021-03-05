@@ -1,5 +1,5 @@
 <div class="tip-container" (click)="this.open(mymodal)" (mouseover)="this.mouseOver()" (mouseleave)="this.mouseLeave()">
-    <p class="tip" *ngIf="!showAddIcon">$10</p>
+    <p class="tip" *ngIf="!showAddIcon">${{this.amount}}</p>
     <span class="material-icons return-icon" [@inOutAnimation] *ngIf="showAddIcon">add</span>
 </div>
 

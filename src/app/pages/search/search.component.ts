@@ -15,39 +15,54 @@ import { ApiService } from "src/app/services/api.service";
 
     solutions: CardSolution[] = [];
     trendings: TrendingTopic[] = [];
+    offset: number = 0;
+    text: String = "";
+    noMoreSolutions:boolean = false;
 
-    constructor(private router: Router,
-      private store: Store<AppState>,
+    constructor(private store: Store<AppState>,
       private apiService:ApiService) { }
 
-      @HostListener("window:scroll", [])
+      @HostListener('window:scroll', [])
       onScroll(): void {
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-          //console.log(1);
+        if ((document.body.scrollHeight - (window.innerHeight + window.scrollY) <= 1) && this.noMoreSolutions == false) {
+          this.offset = this.offset + 10;
+          this.findSolutions();
         }
       }
 
     ngOnInit() {
       this.store.select('search').subscribe((data) => {
-        var body = {
-          "text": data,
-          "topic": "",
-          "limit": 10,
-          "offset": 0
-        };
-        this.apiService.findSolutions(body).subscribe(res => {
-          res.forEach(element => {
-            var content = this.getOnlyText(element.content.filter(content => content.type == 1));
-            this.solutions.push(new CardSolution(element._id, element.title, content, new Date(element.createdAt)));
-          });
-        }, error => {
-          console.log(error)
-        });
+        this.offset = 0;
+        this.text = data;
+        this.solutions = [];
+        this.findSolutions();
       });
       
       this.trendings.push(new TrendingTopic("test", "test2"));
       this.trendings.push(new TrendingTopic("test1", "test3"));
       this.trendings.push(new TrendingTopic("test2", "test4"));
+    }
+
+    findSolutions(){
+      var body = {
+        "text": this.text,
+        "topic": "",
+        "limit": 10,
+        "offset": this.offset
+      };
+
+      this.apiService.findSolutions(body).subscribe(res => {
+        if(res.length == 0){
+          this.noMoreSolutions = true;
+          return
+        }
+        res.forEach(element => {
+          var content = this.getOnlyText(element.content.filter(content => content.type == 1));
+          this.solutions.push(new CardSolution(element._id, element.title, content, new Date(element.createdAt)));
+        });
+      }, error => {
+        console.log(error)
+      });
     }
 
     public getOnlyText(content){

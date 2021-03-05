@@ -13,6 +13,9 @@ export const environment = {
     login: "/user/login",
     saveSolution: "/v1/solution",
     uploadFile: "/v1/solution/uploadfile",
-    findSolution: "/solution/find"
+    findSolution: "/solution/find",
+    getSolutionByID: "/solution",
+    findComments: "/comment/find",
+    postComment: "/v1/comment"
   }
 };

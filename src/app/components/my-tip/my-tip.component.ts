@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { ModalDismissReasons, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { IPayPalConfig, ICreateOrderRequest, IPayPalButtonStyle } from 'ngx-paypal';
 import { environment } from './../../../environments/environment';
@@ -33,6 +33,7 @@ import { Constants } from './../../utils/constants';
 })
 export class MyTipComponent {
 
+  @Input() amount:number;
   closeResult: string;
   showAddIcon: boolean = false;
   initalTip: number = 1;

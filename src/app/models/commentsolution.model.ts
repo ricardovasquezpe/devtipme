@@ -1,11 +1,12 @@
 export class CommentSolution {
     public username: string;
-    public date: string;
     public comment: string;
+    public createdAt: Date;
+    public shortDateName: string;
 
-    constructor(username: string, date: string, comment: string){
+    constructor(username: string, createdAt: Date, comment: string){
         this.username = username;
-        this.date = date;
+        this.createdAt = createdAt;
         this.comment = comment;
     }
 }
