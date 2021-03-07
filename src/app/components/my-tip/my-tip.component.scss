@@ -19,16 +19,12 @@
     margin: 0;
 }
 
-.modal-content {
-    background-color: black;
+.myTipModal > .modal-dialog > .modal-content{
+    background-color: #414040;
 }
 
-::ng-deep .modal-content {
-    background-color: #414040 !important;
-}
-
-::ng-deep .modal-body{
-    padding: 0;
+.myTipModal > .modal-dialog > .modal-content > .modal-body{
+    padding: 0 !important;
 }
 
 .add-tip{

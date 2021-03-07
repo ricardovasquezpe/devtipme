@@ -9,6 +9,7 @@ import { Constants } from './../../utils/constants';
   selector: 'app-my-tip',
   templateUrl: './my-tip.component.html',
   styleUrls: ['./my-tip.component.scss'],
+  encapsulation: ViewEncapsulation.None,
   animations: [
     trigger(
       'inOutAnimation', 
@@ -95,7 +96,7 @@ export class MyTipComponent {
     this.modalReference = this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title', 
       size: 'sm', 
-      windowClass: 'add-modal'});
+      windowClass: 'myTipModal'});
     this.modalReference.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {

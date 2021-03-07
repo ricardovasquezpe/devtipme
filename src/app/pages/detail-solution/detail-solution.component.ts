@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AppState } from 'src/app/app.reducer';
 import { Store } from '@ngrx/store';
 import * as moment from 'moment';
+import { SessionManager } from 'src/app/services/SessionManager';
 
 @Component({
   selector: 'app-detail-solution',
@@ -28,7 +29,8 @@ export class DetailSolutionComponent implements OnInit {
   constructor(private apiService:ApiService,
     private route: ActivatedRoute,
     private router: Router,
-    private store: Store<AppState>) { }
+    private store: Store<AppState>,
+    private sessionManager:SessionManager) { }
 
   ngOnInit(): void {
     window.scroll(0,0);
@@ -39,7 +41,7 @@ export class DetailSolutionComponent implements OnInit {
       this.amount = res.amount;
       this.shortNameDate = this.getShortNameDate(res.solution.createdAt);
       this.title = res.solution.title;
-      this.userName = res.solution.userId;
+      this.userName = res.user.email;
     }, error => {
       console.log(error)
     });
@@ -55,7 +57,7 @@ export class DetailSolutionComponent implements OnInit {
 
   addComments(comments){
     comments.forEach(element => {
-      this.comments.push(new CommentSolution(element.userId, new Date(element.createdAt), element.comment));
+      this.comments.push(new CommentSolution(element.userData.email, new Date(element.createdAt), element.comment));
     });
   }
 
@@ -67,7 +69,7 @@ export class DetailSolutionComponent implements OnInit {
 
   getShortNameDate(date:string){
     var dateObj = new Date(date)
-    return moment(dateObj).format('MMM') + "." + " " + moment(dateObj).format('DD');
+    return moment(dateObj).format('YYYY') + " " + moment(dateObj).format('MMM') + "." + " " + moment(dateObj).format('DD');
   }
 
   verifyAuth(){
@@ -99,7 +101,7 @@ export class DetailSolutionComponent implements OnInit {
     }
 
     this.apiService.postComment(data).subscribe(res => {
-      this.comments.push(new CommentSolution(res.comment.userId, new Date(res.comment.createdAt), res.comment.comment));
+      this.comments.push(new CommentSolution(this.sessionManager.retrieveEmail(), new Date(res.comment.createdAt), res.comment.comment));
       this.commentTextArea.text = "";
     }, error => {
       console.log(error)
