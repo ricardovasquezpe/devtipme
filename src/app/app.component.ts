@@ -62,6 +62,9 @@ export class AppComponent implements OnInit{
 
   verifySearch(){
     this.store.select('search').subscribe((data) => {
+      if(data == ""){
+        return;
+      }
       this.router.navigate(["/search"]);
     });
   }
