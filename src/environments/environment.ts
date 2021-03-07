@@ -16,6 +16,7 @@ export const environment = {
     findSolution: "/solution/find",
     getSolutionByID: "/solution",
     findComments: "/comment/find",
-    postComment: "/v1/comment"
+    postComment: "/v1/comment",
+    insertTip: "/v1/tip"
   }
 };

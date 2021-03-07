@@ -101,7 +101,7 @@ export class DetailSolutionComponent implements OnInit {
     }
 
     this.apiService.postComment(data).subscribe(res => {
-      this.comments.push(new CommentSolution(this.sessionManager.retrieveEmail(), new Date(res.comment.createdAt), res.comment.comment));
+      this.comments.unshift(new CommentSolution(this.sessionManager.retrieveEmail(), new Date(res.comment.createdAt), res.comment.comment));
       this.commentTextArea.text = "";
     }, error => {
       console.log(error)

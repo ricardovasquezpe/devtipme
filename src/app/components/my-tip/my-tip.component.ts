@@ -2,6 +2,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { ModalDismissReasons, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { IPayPalConfig, ICreateOrderRequest, IPayPalButtonStyle } from 'ngx-paypal';
+import { ApiService } from 'src/app/services/api.service';
 import { environment } from './../../../environments/environment';
 import { Constants } from './../../utils/constants';
 
@@ -35,6 +36,7 @@ import { Constants } from './../../utils/constants';
 export class MyTipComponent {
 
   @Input() amount:number;
+  @Input() solutionId:string;
   closeResult: string;
   showAddIcon: boolean = false;
   initalTip: number = 1;
@@ -43,7 +45,8 @@ export class MyTipComponent {
   showPayTipContent: boolean = false;
   public payPalConfig?: IPayPalConfig;
 
-  constructor(private modalService: NgbModal) {}
+  constructor(private modalService: NgbModal,
+    private apiService:ApiService) {}
 
   ngOnInit(): void {
   }
@@ -70,13 +73,23 @@ export class MyTipComponent {
       color: 'silver'
     },
     onApprove: (data, actions) => {
-      console.log('onApprove - transaction was approved, but not authorized', data, actions);
       actions.order.get().then(details => {
-        console.log('onApprove - you can get full order details inside onApprove: ', details);
       });
     },
     onClientAuthorization: (data) => {
-      console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
+      this.amount = this.amount + this.initalTip;
+      var body = {
+          "amount": this.amount,
+          "solutionId": this.solutionId
+      }
+      this.apiService.insertTip(body).subscribe(res => {
+        this.initalTip = 1;
+        this.modalReference.close({
+          "completed": true
+        });
+      }, error => {
+        console.log(error)
+      });
     },
     onCancel: (data, actions) => {
     },

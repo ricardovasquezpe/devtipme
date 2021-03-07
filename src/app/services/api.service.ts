@@ -46,4 +46,9 @@ export class ApiService {
         const headers = { 'content-type': 'application/json'}
         return this.http.post(environment.apiUrl + environment.methods.postComment, JSON.stringify(payload), {'headers': headers});
     }
+
+    insertTip(payload): Observable<any>{
+        const headers = { 'content-type': 'application/json'}
+        return this.http.post(environment.apiUrl + environment.methods.insertTip, JSON.stringify(payload), {'headers': headers});
+    }
 }

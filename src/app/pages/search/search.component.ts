@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/app.reducer";
 import { CardSolution } from "src/app/models/cardsolution.model";
@@ -18,9 +18,11 @@ import { ApiService } from "src/app/services/api.service";
     offset: number = 0;
     text: String = "";
     noMoreSolutions:boolean = false;
+    topic:string = "";
 
     constructor(private store: Store<AppState>,
-      private apiService:ApiService) { }
+      private apiService:ApiService,
+      private route: ActivatedRoute) { }
 
       @HostListener('window:scroll', [])
       onScroll(): void {
@@ -31,6 +33,8 @@ import { ApiService } from "src/app/services/api.service";
       }
 
     ngOnInit() {
+      this.topic = (this.route.snapshot.paramMap.get('topic') != null) ? this.route.snapshot.paramMap.get('topic') : "";
+
       this.store.select('search').subscribe((data) => {
         this.offset = 0;
         this.text = data;
@@ -46,10 +50,12 @@ import { ApiService } from "src/app/services/api.service";
     findSolutions(){
       var body = {
         "text": this.text,
-        "topic": "",
+        "topic": this.topic,
         "limit": 10,
         "offset": this.offset
       };
+
+      console.log(body);
 
       this.apiService.findSolutions(body).subscribe(res => {
         if(res.length == 0){
