@@ -3,8 +3,13 @@ import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { ModalDismissReasons, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { IPayPalConfig, ICreateOrderRequest, IPayPalButtonStyle } from 'ngx-paypal';
 import { ApiService } from 'src/app/services/api.service';
+import { SessionManager } from 'src/app/services/SessionManager';
+import { LoginComponent } from '../login/login.component';
 import { environment } from './../../../environments/environment';
 import { Constants } from './../../utils/constants';
+import * as actions from 'src/app/actions/auth/auth.action';
+import { AppState } from 'src/app/app.reducer';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-my-tip',
@@ -44,9 +49,12 @@ export class MyTipComponent {
   showTipAmountContent: boolean = true;
   showPayTipContent: boolean = false;
   public payPalConfig?: IPayPalConfig;
+  modalLoginReference;
 
   constructor(private modalService: NgbModal,
-    private apiService:ApiService) {}
+    private apiService:ApiService,
+    private sessionManager:SessionManager,
+    private store: Store<AppState>) {}
 
   ngOnInit(): void {
   }
@@ -55,14 +63,6 @@ export class MyTipComponent {
     this.payPalConfig = {
     currency: Constants.paypalCurrency,
     clientId: environment.paypal.clientId,
-    createOrderOnClient: (data) => <ICreateOrderRequest>{
-      intent: 'CAPTURE',
-      purchase_units: [{
-        amount: {
-          value: this.initalTip.toString()
-        }
-      }]
-    },
     advanced: {
       commit: 'true'
     },
@@ -72,24 +72,34 @@ export class MyTipComponent {
       size: 'small',
       color: 'silver'
     },
+    createOrderOnClient: (data) => <ICreateOrderRequest>{
+      intent: 'CAPTURE',
+      purchase_units: [{
+        amount: {
+          value: this.initalTip.toString()
+        }
+      }]
+    },
     onApprove: (data, actions) => {
       actions.order.get().then(details => {
       });
     },
     onClientAuthorization: (data) => {
-      this.amount = this.amount + this.initalTip;
-      var body = {
-          "amount": this.amount,
-          "solutionId": this.solutionId
-      }
-      this.apiService.insertTip(body).subscribe(res => {
-        this.initalTip = 1;
-        this.modalReference.close({
-          "completed": true
+      if(data.status == Constants.paypalStatusCompleted){
+        this.amount = this.amount + this.initalTip;
+        var body = {
+            "amount": this.initalTip,
+            "solutionId": this.solutionId
+        }
+        this.apiService.insertTip(body).subscribe(res => {
+          this.initalTip = 1;
+          this.modalReference.close({
+            "completed": true
+          });
+        }, error => {
+          console.log(error)
         });
-      }, error => {
-        console.log(error)
-      });
+      }
     },
     onCancel: (data, actions) => {
     },
@@ -102,6 +112,10 @@ export class MyTipComponent {
   }
     
   open(content) {
+    if(!this.validateTip()){
+      return;
+    }
+
     this.initalTip = 1;
     this.showTipAmountContent = true;
     this.showPayTipContent = false;
@@ -148,5 +162,24 @@ export class MyTipComponent {
   return(){
     this.showTipAmountContent = true;
     this.showPayTipContent = false;
+  }
+
+  validateTip(){
+    if(!this.sessionManager.verifyAuth()){
+      this.goToLogin();
+      return false;
+    }
+
+    return true;
+  }
+
+  goToLogin(){
+    this.modalLoginReference = this.modalService.open(LoginComponent, {size: 'sm', keyboard: false, centered: true});
+    this.modalLoginReference.result.then((result) => {
+        if(result.completed){
+          this.store.dispatch(actions.set());
+        }
+      }, (reason) => {
+    });
   }
 }

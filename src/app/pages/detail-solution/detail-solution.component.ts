@@ -7,6 +7,9 @@ import { AppState } from 'src/app/app.reducer';
 import { Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { SessionManager } from 'src/app/services/SessionManager';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LoginComponent } from 'src/app/components/login/login.component';
+import * as actions from 'src/app/actions/auth/auth.action';
 
 @Component({
   selector: 'app-detail-solution',
@@ -24,13 +27,15 @@ export class DetailSolutionComponent implements OnInit {
   shortNameDate: string = "";
   title: string = "";
   userName: string = "";
+  modalLoginReference;
 
   @ViewChild('comment') commentTextArea;
   constructor(private apiService:ApiService,
     private route: ActivatedRoute,
     private router: Router,
     private store: Store<AppState>,
-    private sessionManager:SessionManager) { }
+    private sessionManager:SessionManager,
+    private modalService: NgbModal) { }
 
   ngOnInit(): void {
     window.scroll(0,0);
@@ -51,8 +56,6 @@ export class DetailSolutionComponent implements OnInit {
     }, error => {
       console.log(error)
     });
-
-    this.verifyAuth();
   }
 
   addComments(comments){
@@ -72,26 +75,12 @@ export class DetailSolutionComponent implements OnInit {
     return moment(dateObj).format('YYYY') + " " + moment(dateObj).format('MMM') + "." + " " + moment(dateObj).format('DD');
   }
 
-  verifyAuth(){
-    this.store.select('auth').subscribe((data) => {
-      if(data){
-        this.showPostComment = true;
-      } else {
-        this.showPostComment = false;
-      }
-    });
-  }
-
   onBack(){
     this.router.navigateByUrl('/search');
   }
 
   postcomment(){
-    if(this.commentTextArea.text.replace(/\s/g, "") == ""){
-      return;
-    }
-
-    if(this.commentTextArea.text.trim().length <= 10){
+    if(!this.validateComment()){
       return;
     }
 
@@ -105,6 +94,33 @@ export class DetailSolutionComponent implements OnInit {
       this.commentTextArea.text = "";
     }, error => {
       console.log(error)
+    });
+  }
+
+  validateComment(){
+    if(!this.sessionManager.verifyAuth()){
+      this.goToLogin();
+      return false;
+    }
+
+    if(this.commentTextArea.text.replace(/\s/g, "") == ""){
+      return false;
+    }
+
+    if(this.commentTextArea.text.trim().length <= 10){
+      return false;
+    }
+
+    return true;
+  }
+
+  goToLogin(){
+    this.modalLoginReference = this.modalService.open(LoginComponent, {size: 'sm', keyboard: false, centered: true});
+    this.modalLoginReference.result.then((result) => {
+        if(result.completed){
+          this.store.dispatch(actions.set());
+        }
+      }, (reason) => {
     });
   }
 }

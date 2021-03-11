@@ -32,10 +32,10 @@
     </div>
     <div class="row container-comments">
         <div class="col-sm-12">
-            <div class="mb-1" *ngIf="this.showPostComment">
+            <div class="mb-1">
                 <app-my-textarea [placeHolder] = "'Enter a comment...'" #comment></app-my-textarea>
             </div>
-            <div class="mb-4 text-center" *ngIf="this.showPostComment">
+            <div class="mb-4 text-center">
                 <app-my-button [text] ="'POST'" [width] ="'200px'" (click)="this.postcomment()"></app-my-button>
             </div>
             <div class="mb-4">
