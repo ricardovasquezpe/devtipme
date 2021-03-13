@@ -51,4 +51,9 @@ export class ApiService {
         const headers = { 'content-type': 'application/json'}
         return this.http.post(environment.apiUrl + environment.methods.insertTip, JSON.stringify(payload), {'headers': headers});
     }
+    
+    authorizePayment(payload){
+        const headers = { 'content-type': 'application/json'}
+        return this.http.post(environment.apiUrl + environment.methods.authorizePayment, JSON.stringify(payload), {'headers': headers}).toPromise();
+    }
 }

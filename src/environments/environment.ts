@@ -17,6 +17,7 @@ export const environment = {
     getSolutionByID: "/solution",
     findComments: "/comment/find",
     postComment: "/v1/comment",
-    insertTip: "/v1/tip"
+    insertTip: "/v1/tip",
+    authorizePayment: "/v1/paypal/authorize"
   }
 };

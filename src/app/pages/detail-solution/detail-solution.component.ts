@@ -107,7 +107,7 @@ export class DetailSolutionComponent implements OnInit {
       return false;
     }
 
-    if(this.commentTextArea.text.trim().length <= 10){
+    if(this.commentTextArea.text.trim().length <= 5){
       return false;
     }
 

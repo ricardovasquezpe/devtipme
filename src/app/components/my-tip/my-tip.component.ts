@@ -61,54 +61,51 @@ export class MyTipComponent {
 
   private initConfig(): void {
     this.payPalConfig = {
-    currency: Constants.paypalCurrency,
-    clientId: environment.paypal.clientId,
-    advanced: {
-      commit: 'true'
-    },
-    style: {
-      label: 'paypal',
-      layout: 'vertical',
-      size: 'small',
-      color: 'silver'
-    },
-    createOrderOnClient: (data) => <ICreateOrderRequest>{
-      intent: 'CAPTURE',
-      purchase_units: [{
-        amount: {
-          value: this.initalTip.toString()
-        }
-      }]
-    },
-    onApprove: (data, actions) => {
-      actions.order.get().then(details => {
-      });
-    },
-    onClientAuthorization: (data) => {
-      if(data.status == Constants.paypalStatusCompleted){
-        this.amount = this.amount + this.initalTip;
-        var body = {
-            "amount": this.initalTip,
-            "solutionId": this.solutionId
-        }
-        this.apiService.insertTip(body).subscribe(res => {
-          this.initalTip = 1;
-          this.modalReference.close({
-            "completed": true
-          });
-        }, error => {
-          console.log(error)
-        });
-      }
-    },
-    onCancel: (data, actions) => {
-    },
-    onError: err => {
-      console.log('OnError', err);
-    },
-    onClick: (data, actions) => {
-    },
-  };
+      currency: Constants.paypalCurrency,
+      clientId: environment.paypal.clientId,
+      advanced: {
+        commit: 'true'
+      },
+      style: {
+        label: 'paypal',
+        layout: 'vertical',
+        size: 'small',
+        color: 'silver'
+      },
+      createOrderOnClient: (data) => <ICreateOrderRequest>{
+        intent: 'CAPTURE',
+        purchase_units: [{
+          amount: {
+            value: this.initalTip.toString()
+          }
+        }]
+      },
+      onApprove: (data, actions) => {
+        /*actions.order.get().then(details => {
+        });*/
+      },
+      authorizeOnServer: (approveData) => 
+        this.apiService.authorizePayment({
+          "orderId": approveData.orderID,
+          "solutionId": this.solutionId,
+          "amount": this.initalTip
+        }).then((res) => {
+          if(res["status"] == "success"){
+            this.amount = this.amount + this.initalTip;
+            this.initalTip = 1;
+            this.modalReference.close({
+              "completed": true
+            });
+          }
+        }),
+      onCancel: (data, actions) => {
+      },
+      onError: err => {
+        console.log('OnError', err);
+      },
+      onClick: (data, actions) => {
+      },
+    };
   }
     
   open(content) {
