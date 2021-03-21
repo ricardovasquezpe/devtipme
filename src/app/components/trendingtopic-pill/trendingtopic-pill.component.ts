@@ -9,8 +9,9 @@ import { TrendingTopic } from "src/app/models/trendingtopic.model";
   export class TrendingTopicPillComponent implements OnInit {
 
     @Input() trending: TrendingTopic;
+    url:string = "";
 
     ngOnInit() {
-      
+      this.url = 'search/' + this.trending.link;
     }
   }

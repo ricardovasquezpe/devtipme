@@ -66,7 +66,7 @@ export class DetailSolutionComponent implements OnInit {
 
   addTrendngTopics(topics){
     topics.forEach(element => {
-      this.trendings.push(new TrendingTopic(element, "/search/" + element));
+      this.trendings.push(new TrendingTopic(element, element));
     });
   }
 

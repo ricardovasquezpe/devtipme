@@ -1,4 +1,4 @@
-<p *ngIf="this.showContentText">{{this.content}}</p>
+<div class="message" [innerHTML]="this.content" *ngIf="this.showContentText" style="white-space: pre-wrap;"></div>
 
 <img [src]="this.content" style="width: 100%;" *ngIf="this.showContentImage">
 

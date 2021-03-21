@@ -5,7 +5,5 @@
     <p class="date">
         {{this.comment.shortDateName}}
     </p>
-    <p class="comment">
-        {{this.comment.comment}}
-    </p>
+    <div class="comment" [innerHTML]="this.comment.comment" style="white-space: pre-wrap;"></div>
 </div>
