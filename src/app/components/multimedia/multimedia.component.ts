@@ -7,6 +7,7 @@ import * as actions from 'src/app/actions/multimedia/multimedia.action';
 import { Multimedia } from 'src/app/models/multimedia.model';
 import * as moment from 'moment'
 import { ApiService } from 'src/app/services/api.service';
+import { Constants } from 'src/app/utils/constants';
 
 @Component({
   selector: 'app-multimedia',
@@ -26,7 +27,7 @@ export class MultimediaComponent implements OnInit, AfterViewInit  {
   aceEditor: ace.Ace.Editor;
   typeSelected:number = 0;
   internalId: string = "";
-  urlFileUploaded:string = "";
+  fileToUpload:File = null;
 
 
   @ViewChild("editor") private editor: ElementRef<HTMLElement>;
@@ -55,15 +56,15 @@ export class MultimediaComponent implements OnInit, AfterViewInit  {
   selectOption(action){
     this.typeSelected = action;
     switch(action) { 
-      case 1: {
+      case Constants.multimediaTypeText: {
         this.textAreaOption();
         break;
       }
-      case 2: {
+      case Constants.multimediaTypeImage: {
         this.imageOption();
         break;
       }
-      case 3: {
+      case Constants.multimediaTypeCode: {
         this.codeEditorOption();
         break;
       }
@@ -112,21 +113,21 @@ export class MultimediaComponent implements OnInit, AfterViewInit  {
         this.selectOption(2);
     }
 
-    let uploadedFile = (event.target as HTMLInputElement).files[0];
-    this.uploadFile(uploadedFile);
+    this.fileToUpload = (event.target as HTMLInputElement).files[0];
+    //this.uploadFile(uploadedFile);
   }
 
   getContentByType(type:number){
     switch(type) { 
-      case 1: {
+      case Constants.multimediaTypeText: {
         return this.myTextArea.text;
         break;
       }
-      case 2: {
-        return this.urlFileUploaded;
+      case Constants.multimediaTypeImage: {
+        return this.fileToUpload;
         break;
       }
-      case 3: {
+      case Constants.multimediaTypeCode: {
         return this.aceEditor.getValue();
         break;
       }
@@ -139,13 +140,5 @@ export class MultimediaComponent implements OnInit, AfterViewInit  {
 
   ngOnDestroy() {
     this.eventsSubscription.unsubscribe();
-  }
-
-  uploadFile(uploadedFile){
-    var formData: any = new FormData();
-    formData.append('file', uploadedFile);
-    this.apiService.uploadFile(formData).subscribe(res => {
-      this.urlFileUploaded = res.fileName;
-    });
   }
 }

@@ -5,11 +5,11 @@ import { AppState } from 'src/app/app.reducer';
 import { ApiService } from 'src/app/services/api.service';
 import * as actions from 'src/app/actions/multimedia/multimedia.action';
 import { Multimedia } from 'src/app/models/multimedia.model';
-import { take } from 'rxjs/operators';
 import { Solution } from 'src/app/models/solution.model';
 import { NgbModal, NgbModalRef, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationComponent } from 'src/app/components/confirmation/confirmation.component';
 import { Router } from '@angular/router';
+import { Constants } from 'src/app/utils/constants';
 
 @Component({
   selector: 'app-new-solution',
@@ -50,15 +50,15 @@ export class NewSolutionComponent implements OnInit {
     });
   }
 
-  saveSolution(){
+  async saveSolution(){
     this.eventsSubject.next();
-    this.addOrderToMultimediaList();
     if(!this.validate()){
       this.openWarningModal();
       this.multimediaFinalList = [];
       this.store.dispatch(actions.clean());
       return;
     }
+    await this.addOrderToMultimediaList();
     this.apiService.saveSolution(this.getSolutionStruct()).subscribe(res => {
       this.router.navigateByUrl('/');
     }, error => {
@@ -71,10 +71,14 @@ export class NewSolutionComponent implements OnInit {
     return solution;
   }
 
-  addOrderToMultimediaList(){
+  async addOrderToMultimediaList(){
     for (let index = 0; index < this.multimediaTempFinalList.length; index++) {
       var element = this.multimediaTempFinalList[index];
       this.multimediaFinalList.push(new Multimedia("", element.content, element.type, (index + 1)))
+      if(element.type == Constants.multimediaTypeImage){
+        var fileURL = await this.uploadFile(element.content);
+        this.multimediaFinalList[index].content = fileURL;
+      }
     }
   }
 
@@ -84,11 +88,11 @@ export class NewSolutionComponent implements OnInit {
       result = false;
     }
 
-    if(this.multimediaFinalList.length == 0){
+    if(this.multimediaTempFinalList.length == 0){
       result = false;
     }
     
-    this.multimediaFinalList.forEach(element => {
+    this.multimediaTempFinalList.forEach(element => {
       if(element.content == "" || element.content == undefined){
         result = false;
       }
@@ -121,4 +125,10 @@ export class NewSolutionComponent implements OnInit {
     warningModal.componentInstance.type = 2;
   }
 
+  async uploadFile(uploadedFile){
+    var formData: any = new FormData();
+    formData.append('file', uploadedFile);
+    var res = await this.apiService.uploadFile(formData).toPromise();
+    return res.fileName;
+  }
 }

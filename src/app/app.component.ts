@@ -100,18 +100,8 @@ export class AppComponent implements OnInit{
     this.modalRegisterReference = this.modalService.open(RegisterComponent, {size: 'sm', keyboard: false, centered: true});
     this.modalRegisterReference.result.then((result) => {
       if(result.completed){
-        var payload = {
-          "email": result.email,
-          "password": result.password
-        }
-        this.apiService.login(payload).subscribe(res => {
-          if(res.error){
-            console.log(res.error)
-            return;
-          }
-          this.sessionManager.storeNewToken(res.token, result.email);
-          this.store.dispatch(actions.set());
-        }, error => console.log('error', error));
+        this.sessionManager.storeNewToken(result.token, result.email);
+        this.store.dispatch(actions.set());
       }
     }, (reason) => { 
     });

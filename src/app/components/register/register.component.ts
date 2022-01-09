@@ -40,10 +40,12 @@ export class RegisterComponent implements OnInit {
         return;
       }
 
+      console.log(res);
+
       this.activeModal.close({
-          "completed":true,
+          "completed": true,
           "email": this.frmRegister.value.email,
-          "password": this.frmRegister.value.password
+          "token": res["token"]
       });
     }, error => console.log('error', error));
   }

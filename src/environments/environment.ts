@@ -7,7 +7,7 @@ export const environment = {
   paypal:{
     clientId: "AaLifL9xZQYOxIeqUVxYTrGIm_bWY1m9KWPKaRt_4PptuQLNZm74V9jLC8ZlKFS53wvP-_7VZm8hm1zz"
   },
-  apiUrl: "http://localhost:5000/api",
+  apiUrl: "http://localhost:5000",
   methods: {
     createUser: "/user",
     login: "/user/login",
