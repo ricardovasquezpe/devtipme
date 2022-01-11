@@ -31,6 +31,21 @@ export class ApiService {
         return this.http.post(environment.apiUrl + environment.methods.findSolution, JSON.stringify(payload),{'headers': headers})
     }
 
+    findMySolutions(): Observable<any>{
+        const headers = { 'content-type': 'application/json'}
+        return this.http.get(environment.apiUrl + environment.methods.findMySolution, {'headers': headers})
+    }
+
+    amountMyTips(): Observable<any>{
+        const headers = { 'content-type': 'application/json'}
+        return this.http.get(environment.apiUrl + environment.methods.amountMyTips, {'headers': headers})
+    }
+
+    listTrendings(): Observable<any>{
+        const headers = { 'content-type': 'application/json'}
+        return this.http.get(environment.apiUrl + environment.methods.listTrending, {'headers': headers})
+    }
+
     getSolutionById(id: string): Observable<any>{
         const headers = { 'content-type': 'application/json'}
         return this.http.get(environment.apiUrl + environment.methods.getSolutionByID + "/" + id, {'headers': headers})
