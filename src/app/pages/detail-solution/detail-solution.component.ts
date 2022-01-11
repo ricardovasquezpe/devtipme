@@ -27,6 +27,7 @@ export class DetailSolutionComponent implements OnInit {
   shortNameDate: string = "";
   title: string = "";
   userName: string = "";
+  userIdTipped: string = "";
   modalLoginReference;
 
   @ViewChild('comment') commentTextArea;
@@ -47,6 +48,7 @@ export class DetailSolutionComponent implements OnInit {
       this.shortNameDate = this.getShortNameDate(res.solution.createdAt);
       this.title = res.solution.title;
       this.userName = res.user.email;
+      this.userIdTipped = res.user._id;
     }, error => {
       console.log(error)
     });

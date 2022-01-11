@@ -39,9 +39,9 @@ import { Store } from '@ngrx/store';
   ]
 })
 export class MyTipComponent {
-
   @Input() amount:number;
   @Input() solutionId:string;
+  @Input() userIdTipped:string;
   closeResult: string;
   showAddIcon: boolean = false;
   initalTip: number = 1;
@@ -88,7 +88,8 @@ export class MyTipComponent {
         this.apiService.authorizePayment({
           "orderId": approveData.orderID,
           "solutionId": this.solutionId,
-          "amount": this.initalTip
+          "amount": this.initalTip,
+          "userIdTipped": this.userIdTipped
         }).then((res) => {
           if(res["status"] == "success"){
             this.amount = this.amount + this.initalTip;
