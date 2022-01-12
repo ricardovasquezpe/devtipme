@@ -35,12 +35,12 @@ import { ApiService } from "src/app/services/api.service";
     ngOnInit() {
       this.topic = (this.route.snapshot.paramMap.get('topic') != null) ? this.route.snapshot.paramMap.get('topic') : "";
 
+      this.listTrendings();
       this.store.select('search').subscribe((data) => {
         this.offset = 0;
         this.text = data;
         this.solutions = [];
         this.findSolutions();
-        this.listTrendings();
       });
     }
 
