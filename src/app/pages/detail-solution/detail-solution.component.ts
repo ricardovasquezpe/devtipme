@@ -23,6 +23,7 @@ export class DetailSolutionComponent implements OnInit {
   listContent: Array<any> = [];
   amount: number = 0;
   showPostComment: boolean = false;
+  solutionIdEncripted:string = "";
   solutionId:string = "";
   shortNameDate: string = "";
   title: string = "";
@@ -40,8 +41,9 @@ export class DetailSolutionComponent implements OnInit {
 
   ngOnInit(): void {
     window.scroll(0,0);
-    this.solutionId = this.route.snapshot.paramMap.get('id');
-    this.apiService.getSolutionById(this.solutionId).subscribe(res => {
+    this.solutionIdEncripted = this.route.snapshot.paramMap.get('id');
+    this.apiService.getSolutionById(this.solutionIdEncripted).subscribe(res => {
+      this.solutionId = res.solution._id;
       this.listContent = res.solution.content;
       this.addTrendngTopics(res.solution.topics);
       this.amount = res.amount;
@@ -49,12 +51,12 @@ export class DetailSolutionComponent implements OnInit {
       this.title = res.solution.title;
       this.userName = res.user.email;
       this.userIdTipped = res.user._id;
-    }, error => {
-      console.log(error)
-    });
 
-    this.apiService.findCommentsBySolutionId(this.solutionId).subscribe(res => {
-      this.addComments(res);
+      this.apiService.findCommentsBySolutionId(this.solutionId).subscribe(res => {
+        this.addComments(res);
+      }, error => {
+        console.log(error)
+      });
     }, error => {
       console.log(error)
     });

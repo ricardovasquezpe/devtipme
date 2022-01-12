@@ -19,6 +19,6 @@ import * as moment from 'moment'
     }
 
     goToSolution(){
-      this.router.navigateByUrl('/detail-solution/' + this.solution.id);
+      this.router.navigateByUrl('/detail-solution/' + encodeURIComponent(this.solution.id));
     }
   }
