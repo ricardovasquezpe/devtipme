@@ -12,7 +12,8 @@ export class RegisterComponent implements OnInit {
 
   frmRegister: FormGroup;
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(
+    private formBuilder: FormBuilder,
     private apiService:ApiService,
     public activeModal: NgbActiveModal) { }
 
@@ -26,6 +27,7 @@ export class RegisterComponent implements OnInit {
   }
 
   register(){
+    debugger
     if (this.frmRegister.invalid) {
         return;
     }

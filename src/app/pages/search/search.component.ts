@@ -40,11 +40,31 @@ import { ApiService } from "src/app/services/api.service";
         this.text = data;
         this.solutions = [];
         this.findSolutions();
+        this.listTrendings();
       });
-      
-      this.trendings.push(new TrendingTopic("test", "test2"));
-      this.trendings.push(new TrendingTopic("test1", "test3"));
-      this.trendings.push(new TrendingTopic("test2", "test4"));
+    }
+
+    listTrendings () {
+
+      // createdAt: "2022-01-10T01:35:35.482Z"
+      // title: "AngularJS"
+      // total: 4
+      // updatedAt: "2022-01-10T01:35:35.482Z"
+      // _id: "61db8d67ef5854cc6ac6ff17"
+
+      this.apiService.listTrendings().subscribe(res => {
+      if(res.length > 0){
+         res.forEach( x => {
+              let trending = {
+                text: x.title.toUpperCase(),
+                link: x.title,
+              }
+              this.trendings.push(trending);
+        } )
+      }
+      }, error => {
+        console.log(error)
+      });
     }
 
     findSolutions(){
@@ -54,8 +74,6 @@ import { ApiService } from "src/app/services/api.service";
         "limit": 10,
         "offset": this.offset
       };
-
-      console.log(body);
 
       this.apiService.findSolutions(body).subscribe(res => {
         if(res.length == 0){
