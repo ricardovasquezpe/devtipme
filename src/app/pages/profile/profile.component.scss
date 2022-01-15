@@ -13,3 +13,13 @@
     padding-right: 7px;
     padding-bottom: 10px;
 }
+
+.custom-control-input:checked~.custom-control-label::before{
+    color: #fff;
+    border-color: #32BF7F;
+    background-color: #32BF7F;
+}
+
+.disabledCard{
+    opacity: 0.5;
+}

@@ -17,8 +17,13 @@
         </div>
     </div>
     <div class="row mt-4">
-        <div class="col-sm-6 mb-3 card-wrap" *ngFor="let sol of solutions; index as i; first as isFirst">
+        <div class="col-sm-6 mb-3 card-wrap" style="position: relative;" [ngClass]="{'disabledCard': sol.status == '0'}" *ngFor="let sol of solutions; index as i; first as isFirst">
             <solution-card [solution]="sol"></solution-card>
+            <div class="custom-control custom-switch" style="position: absolute; top: 10px; right: 10px;">
+                <input [checked]="sol.status == '1'" checked="" (click)="openStatus($event.currentTarget,sol)" type="checkbox" 
+                        class="custom-control-input" id="{{sol.id}}">
+                <label class="custom-control-label" for="{{sol.id}}"></label>
+            </div>
         </div>
     </div>
 </div>

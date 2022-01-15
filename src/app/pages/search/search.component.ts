@@ -82,7 +82,7 @@ import { ApiService } from "src/app/services/api.service";
         }
         res.forEach(element => {
           var content = this.getOnlyText(element.content.filter(content => content.type == 1));
-          this.solutions.push(new CardSolution(element.encriptedId, element.title, content, new Date(element.createdAt)));
+          this.solutions.push(new CardSolution(element.encriptedId, element.title, content, new Date(element.createdAt),  element.status));
         });
       }, error => {
         console.log(error)

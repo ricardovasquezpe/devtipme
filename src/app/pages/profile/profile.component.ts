@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CardSolution } from 'src/app/models/cardsolution.model';
 import { ApiService } from 'src/app/services/api.service';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmationComponent } from 'src/app/components/confirmation/confirmation.component';
 
 @Component({
   selector: 'app-profile',
@@ -13,12 +15,16 @@ export class ProfileComponent implements OnInit {
   noMoreSolutions:boolean = false;
   myTips: number;
   myPosts: number;
+  modalProfileReference: NgbModalRef;
 
   constructor(
     private apiService:ApiService,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
+    this.myPosts = 0,
+    this.myTips = 0,
     this.findMySolutions();
     this.amountMyTips();
   }
@@ -36,23 +42,6 @@ export class ProfileComponent implements OnInit {
 
   findMySolutions(){
 
-    // content: Array(2)
-    // 0: {type: 1, content: 'esta es una prueba', order: 1}
-    // 1: {type: 1, content: 'esta es una prueba 2', order: 2}
-    // length: 2
-    // [[Prototype]]: Array(0)
-    // createdAt: "2022-01-11T20:12:46.401Z"
-    // status: 1
-    // title: "prueba beto"
-    // topics: Array(1)
-    // 0: "prueba"
-    // length: 1
-    // [[Prototype]]: Array(0)
-    // updatedAt: "2022-01-11T20:12:46.401Z"
-    // userId: "61dd941fbe3249eaef2a910d"
-    // _id: "61dde4bebe3249eaef2a910e"
-
-
     this.apiService.findMySolutions().subscribe(res => {
       if(res.length == 0){
         this.noMoreSolutions = true;
@@ -60,14 +49,14 @@ export class ProfileComponent implements OnInit {
       }
       res.forEach(element => {
         var content = this.getOnlyText(element.content.filter(content => content.type == 1));
-        this.solutions.push(new CardSolution(element._id, element.title, content, new Date(element.createdAt)));
+        this.solutions.push(new CardSolution(element._id, element.title, content, new Date(element.createdAt), element.status));
+     
       });
       this.myPosts = this.solutions.length;  
-
+      console.log(this.solutions)
     }, error => {
       console.log(error)
     });
-
   }
 
   public getOnlyText(content){
@@ -76,5 +65,34 @@ export class ProfileComponent implements OnInit {
       text += element.content + " ";
     });
     return text;
+  }
+
+  openStatus(event,item){
+
+    this.modalProfileReference = this.modalService.open(ConfirmationComponent, {size: 'sm', keyboard: false, centered: true});
+    this.modalProfileReference.componentInstance.type = 1;
+    this.modalProfileReference.componentInstance.title = 'Confirmation';
+    if(item.status == 1)  this.modalProfileReference.componentInstance.text = 'Esta seguro que quiere deshabilitar este post?';
+    else this.modalProfileReference.componentInstance.text = 'Esta seguro que quiere habilitar este post?';
+    this.modalProfileReference.result.then((result) => {
+        if(result.completed){
+          if(item.status == 1) item.status = 0;
+          else if(item.status == 0) item.status = 1;
+          this.apiService.updateStatusById(item).subscribe(res => {
+            if(res){
+             //poner un mosal de mensaje satisfactorio
+            }
+          }, error => {
+            console.log(error)
+          });
+          // this.store.dispatch(actions.set());
+        }
+        else {
+          if(item.status == 0) event.checked = false;
+          else event.checked = true;
+        }
+      }, (reason) => {
+    });
+
   }
 }

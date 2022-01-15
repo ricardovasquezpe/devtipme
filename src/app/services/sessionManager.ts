@@ -9,7 +9,6 @@ export class SessionManager {
     private email:string = 'email';
 
     storeNewToken(token: string, email: string) {
-        debugger
         localStorage.setItem(this.jsonWebToken, token);
         localStorage.setItem(this.expireTime, moment().add(24, 'hours').unix().toString());
         localStorage.setItem(this.email, email);

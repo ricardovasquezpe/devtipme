@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { NgxPayPalModule } from 'ngx-paypal';
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { ContentComponent } from 'src/app/components/content/content.component';
 import { MyTipComponent } from 'src/app/components/my-tip/my-tip.component';
@@ -18,7 +19,8 @@ import { DetailSolutionComponent } from './detail-solution.component';
 		CommonModule,
 		DetailSolutionRoutingModule,
 		ComponentsModule,
-		NgxPayPalModule
+		NgxPayPalModule,
+		NgxSpinnerModule
 	],
 })
 ​

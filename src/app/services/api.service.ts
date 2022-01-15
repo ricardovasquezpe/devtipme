@@ -51,6 +51,14 @@ export class ApiService {
         return this.http.get(environment.apiUrl + environment.methods.getSolutionByID + "/" + id, {'headers': headers})
     }
 
+    updateStatusById(item): Observable<any>{
+        const headers = { 'content-type': 'application/json'}
+        var model = {
+            status: item.status
+        }
+        return this.http.put(environment.apiUrl + environment.methods.saveSolution + "/" + item.id + "/status", JSON.stringify(model), {'headers': headers})
+    }
+
     findCommentsBySolutionId(solutionId: string): Observable<any>{
         let params = new HttpParams();
         params = params.append('solutionId', solutionId);

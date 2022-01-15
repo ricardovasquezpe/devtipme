@@ -11,6 +11,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class RegisterComponent implements OnInit {
 
   frmRegister: FormGroup;
+  message: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -27,12 +28,12 @@ export class RegisterComponent implements OnInit {
   }
 
   register(){
-    debugger
     if (this.frmRegister.invalid) {
         return;
     }
 
     if(this.frmRegister.value.password != this.frmRegister.value.repeatPassword){
+        this.message = "Las contraseñas no coinciden"
         return;
     }
     
