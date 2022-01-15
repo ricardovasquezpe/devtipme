@@ -44,7 +44,7 @@ export class DetailSolutionComponent implements OnInit {
   ngOnInit(): void {
     //this.spinner.show();
 
-    var loadingModal = this.modalService.open(LoadingComponent, {size: 'sm', keyboard: false, centered: true});
+    var loadingModal = this.modalService.open(LoadingComponent, {size: 'sm', keyboard: false, centered: true,});
 
     window.scroll(0,0);
     this.solutionIdEncripted = this.route.snapshot.paramMap.get('id');
