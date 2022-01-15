@@ -3,6 +3,7 @@ import { CardSolution } from 'src/app/models/cardsolution.model';
 import { ApiService } from 'src/app/services/api.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationComponent } from 'src/app/components/confirmation/confirmation.component';
+import { Strings } from 'src/app/utils/strings';
 
 @Component({
   selector: 'app-profile',
@@ -11,6 +12,7 @@ import { ConfirmationComponent } from 'src/app/components/confirmation/confirmat
 })
 export class ProfileComponent implements OnInit {
 
+  strings = Strings.myProfile
   solutions: CardSolution[] = [];
   noMoreSolutions:boolean = false;
   myTips: number;
@@ -72,8 +74,9 @@ export class ProfileComponent implements OnInit {
     this.modalProfileReference = this.modalService.open(ConfirmationComponent, {size: 'sm', keyboard: false, centered: true});
     this.modalProfileReference.componentInstance.type = 1;
     this.modalProfileReference.componentInstance.title = 'Confirmation';
-    if(item.status == 1)  this.modalProfileReference.componentInstance.text = 'Esta seguro que quiere deshabilitar este post?';
-    else this.modalProfileReference.componentInstance.text = 'Esta seguro que quiere habilitar este post?';
+    /*if(item.status == 1)  this.modalProfileReference.componentInstance.text = 'Are you sure want to change the status?';
+    else this.modalProfileReference.componentInstance.text = 'Esta seguro que quiere habilitar este post?';*/
+    this.modalProfileReference.componentInstance.text = 'Are you sure want to change the status?';
     this.modalProfileReference.result.then((result) => {
         if(result.completed){
           if(item.status == 1) item.status = 0;
