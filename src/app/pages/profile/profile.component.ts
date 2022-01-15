@@ -51,11 +51,10 @@ export class ProfileComponent implements OnInit {
       }
       res.forEach(element => {
         var content = this.getOnlyText(element.content.filter(content => content.type == 1));
-        this.solutions.push(new CardSolution(element._id, element.title, content, new Date(element.createdAt), element.status));
+        this.solutions.push(new CardSolution(element.encriptedId, element.title, content, new Date(element.createdAt), element.status));
      
       });
-      this.myPosts = this.solutions.length;  
-      console.log(this.solutions)
+      this.myPosts = this.solutions.length;
     }, error => {
       console.log(error)
     });
