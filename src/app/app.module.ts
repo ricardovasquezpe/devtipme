@@ -27,6 +27,7 @@ import { ApiService } from './services/api.service';
 import { SessionManager } from './services/SessionManager';
 import { AuthInterceptor } from './services/AuthInterceptor';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
+import { VerifyModule } from './pages/verify/verify.module';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { ConfirmationComponent } from './components/confirmation/confirmation.co
     ProfileModule,
     NewSolutionModule,
     DetailSolutionModule,
+    VerifyModule,
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
