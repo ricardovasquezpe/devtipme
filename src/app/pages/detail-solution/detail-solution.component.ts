@@ -11,6 +11,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from 'src/app/components/login/login.component';
 import * as actions from 'src/app/actions/auth/auth.action';
 import { LoadingComponent } from 'src/app/components/loading/loading.component';
+import { style } from '@angular/animations';
 
 @Component({
   selector: 'app-detail-solution',
@@ -42,10 +43,8 @@ export class DetailSolutionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    //this.spinner.show();
 
-    var loadingModal = this.modalService.open(LoadingComponent, {size: 'sm', keyboard: false, centered: true,});
-
+    let loadingModal = this.modalService.open(LoadingComponent, {size: 'sm', keyboard: false, centered: true, });
     window.scroll(0,0);
     this.solutionIdEncripted = this.route.snapshot.paramMap.get('id');
     this.apiService.getSolutionById(this.solutionIdEncripted).subscribe(res => {
@@ -60,7 +59,7 @@ export class DetailSolutionComponent implements OnInit {
 
       this.apiService.findCommentsBySolutionId(this.solutionId).subscribe(res => {
         this.addComments(res);
-        //this.spinner.hide();
+        // loadingModal.close();
       }, error => {
         console.log(error)
       });

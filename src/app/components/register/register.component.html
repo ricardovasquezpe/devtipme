@@ -7,30 +7,23 @@
                 </div>
                 <div class="col-sm-12">
                     <app-input [type]="'text'" [name]="'email'" [formGroup]="this.frmRegister" [placeHolder]="'Enter Email'"></app-input>
-                    <span *ngIf="!this.frmRegister.get('email').valid && this.frmRegister.get('email').touched" 
-                    class="error"> Ingrese su email </span>
                 </div>
                 <div class="col-sm-12 mt-3">
                     <app-input [type]="'text'" [name]="'name'" [formGroup]="this.frmRegister" [placeHolder]="'Enter Name'"></app-input>
-                    <span *ngIf="!this.frmRegister.get('name').valid && this.frmRegister.get('name').touched" 
-                    class="error"> Ingrese su nombre </span>
                 </div>
                 <div class="col-sm-12 mt-3">
                     <app-input [type]="'password'" [name]="'password'" [formGroup]="this.frmRegister" [placeHolder]="'Enter Password'"></app-input>
-                    <span *ngIf="!this.frmRegister.get('password').valid && this.frmRegister.get('password').touched" 
-                    class="error"> Ingrese su contraseña </span>
                 </div>
                 <div class="col-sm-12 mt-3">
                     <app-input [type]="'password'" [name]="'repeatPassword'" [formGroup]="this.frmRegister" [placeHolder]="'Repeat Password'"></app-input>
-                    <span *ngIf="!this.frmRegister.get('repeatPassword').valid && this.frmRegister.get('repeatPassword').touched" 
-                    class="error"> Confirme su contraseña </span>
-                </div>
-                <div class="col-sm-12 mt-3">
-                    <app-button (click)="this.register()" [text]="'Register'"></app-button>
                 </div>
                 <div class="col-sm-12 text-center">
                     <p style="margin-top: 15px;" class="error">{{this.message}}</p>
                 </div>
+                <div class="col-sm-12 mt-3">
+                    <app-button (click)="this.register()" [text]="'Register'"></app-button>
+                </div>
+          
             </div>
         </div>
     </form>

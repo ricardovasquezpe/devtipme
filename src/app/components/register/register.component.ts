@@ -28,27 +28,28 @@ export class RegisterComponent implements OnInit {
   }
 
   register(){
+
     if (this.frmRegister.invalid) {
         return;
     }
 
     if(this.frmRegister.value.password != this.frmRegister.value.repeatPassword){
-        this.message = "Las contraseñas no coinciden"
+        this.message = "The passwords should be the same"
         return;
     }
     
     this.apiService.register(this.frmRegister.value).subscribe(res => {
+      debugger
       if(res.error){
-        console.log(res.error)
+        this.message = res.error;
         return;
       }
-
-      console.log(res);
 
       this.activeModal.close({
           "completed": true,
           "email": this.frmRegister.value.email,
-          "token": res["token"]
+          "token": res["token"],
+          "name": this.frmRegister.value.name
       });
     }, error => console.log('error', error));
   }

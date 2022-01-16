@@ -100,7 +100,7 @@ export class AppComponent implements OnInit{
     this.modalRegisterReference = this.modalService.open(RegisterComponent, {size: 'sm', keyboard: false, centered: true});
     this.modalRegisterReference.result.then((result) => {
       if(result.completed){
-        this.sessionManager.storeNewToken(result.token, result.email);
+        this.sessionManager.storeNewToken(result.token, result.email, result.name);
         this.store.dispatch(actions.set());
       }
     }, (reason) => { 

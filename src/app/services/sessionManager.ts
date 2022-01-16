@@ -7,11 +7,13 @@ export class SessionManager {
     private jsonWebToken:string = 'token';
     private expireTime:string = 'expireAt';
     private email:string = 'email';
+    private name:string = 'name';
 
-    storeNewToken(token: string, email: string) {
+    storeNewToken(token: string, email: string, name: string) {
         localStorage.setItem(this.jsonWebToken, token);
         localStorage.setItem(this.expireTime, moment().add(24, 'hours').unix().toString());
         localStorage.setItem(this.email, email);
+        localStorage.setItem(this.name, name);
     }
 
     retrieveToken() {
@@ -30,6 +32,12 @@ export class SessionManager {
         let storedEmail:string = localStorage.getItem(this.email);
         if(!storedEmail) throw 'no email found';
         return storedEmail;
+    }
+
+    retrieveName(){
+        let storedName:string = localStorage.getItem(this.name);
+        if(!storedName) throw 'no name found';
+        return storedName;
     }
 
     verifyAuth(){

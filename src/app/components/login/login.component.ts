@@ -34,11 +34,10 @@ export class LoginComponent implements OnInit {
 
     this.apiService.login(this.frmLogin.value).subscribe(res => {
       if(res.error){
-        console.log(res.error)
+        this.error = res.error;
         return;
       }
-
-      this.sessionManager.storeNewToken(res.token, this.frmLogin.value.email)
+      this.sessionManager.storeNewToken(res.token, this.frmLogin.value.email, res.name)
       this.activeModal.close({
           "completed" :true,
           "email" : this.frmLogin.value.email

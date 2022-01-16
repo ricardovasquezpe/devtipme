@@ -4,6 +4,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationComponent } from 'src/app/components/confirmation/confirmation.component';
 import { Strings } from 'src/app/utils/strings';
+import { SessionManager } from 'src/app/services/SessionManager';
 
 @Component({
   selector: 'app-profile',
@@ -18,15 +19,18 @@ export class ProfileComponent implements OnInit {
   myTips: number;
   myPosts: number;
   modalProfileReference: NgbModalRef;
+  name: string;
 
   constructor(
     private apiService:ApiService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private sessionManager:SessionManager,
   ) { }
 
   ngOnInit(): void {
     this.myPosts = 0,
     this.myTips = 0,
+    this.name = this.sessionManager.retrieveName();
     this.findMySolutions();
     this.amountMyTips();
   }
