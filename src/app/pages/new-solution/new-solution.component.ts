@@ -25,6 +25,7 @@ export class NewSolutionComponent implements OnInit {
     }
   ];
   solutionTags = [];
+  modalProfileReference: NgbModalRef;
 
   constructor(private apiService:ApiService,
     private store: Store<AppState>,
@@ -60,7 +61,16 @@ export class NewSolutionComponent implements OnInit {
     }
     await this.addOrderToMultimediaList();
     this.apiService.saveSolution(this.getSolutionStruct()).subscribe(res => {
-      this.router.navigateByUrl('/');
+      if(res.error != null){
+        var warningModal = this.modalService.open(ConfirmationComponent, {size: 'sm', keyboard: false, centered: true});
+        warningModal.componentInstance.title = 'User not verified';
+        warningModal.componentInstance.text = 'Please verify your email to be able to create a new solution';
+        warningModal.componentInstance.type = 2;
+        this.multimediaFinalList = [];
+        this.store.dispatch(actions.clean());
+      } else {
+        this.router.navigateByUrl('/');
+      }
     }, error => {
       console.log(error)
     });

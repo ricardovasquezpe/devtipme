@@ -11,7 +11,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from 'src/app/components/login/login.component';
 import * as actions from 'src/app/actions/auth/auth.action';
 import { LoadingComponent } from 'src/app/components/loading/loading.component';
-import { style } from '@angular/animations';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-detail-solution',
@@ -30,7 +30,7 @@ export class DetailSolutionComponent implements OnInit {
   shortNameDate: string = "";
   title: string = "";
   userName: string = "";
-  userIdTipped: string = "";
+  userIdTippedEncrypted: string = "";
   modalLoginReference;
 
   @ViewChild('comment') commentTextArea;
@@ -39,11 +39,11 @@ export class DetailSolutionComponent implements OnInit {
     private router: Router,
     private store: Store<AppState>,
     private sessionManager:SessionManager,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private location: Location
   ) { }
 
   ngOnInit(): void {
-
     let loadingModal = this.modalService.open(LoadingComponent, {size: 'sm', keyboard: false, centered: true, });
     window.scroll(0,0);
     this.solutionIdEncripted = this.route.snapshot.paramMap.get('id');
@@ -55,9 +55,9 @@ export class DetailSolutionComponent implements OnInit {
       this.shortNameDate = this.getShortNameDate(res.solution.createdAt);
       this.title = res.solution.title;
       this.userName = res.user.email;
-      this.userIdTipped = res.user._id;
+      this.userIdTippedEncrypted = res.user.encriptedId;
 
-      this.apiService.findCommentsBySolutionId(this.solutionId).subscribe(res => {
+      this.apiService.findCommentsBySolutionId(this.solutionIdEncripted).subscribe(res => {
         this.addComments(res);
         // loadingModal.close();
       }, error => {
@@ -86,7 +86,8 @@ export class DetailSolutionComponent implements OnInit {
   }
 
   onBack(){
-    this.router.navigateByUrl('/search');
+    //this.router.navigateByUrl('/search');
+    this.location.back();
   }
 
   postcomment(){
@@ -96,7 +97,7 @@ export class DetailSolutionComponent implements OnInit {
 
     var data = {
       "comment": this.commentTextArea.text.trim(),
-      "solutionId": this.solutionId
+      "solutionId": this.solutionIdEncripted
     }
 
     this.apiService.postComment(data).subscribe(res => {
