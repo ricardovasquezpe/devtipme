@@ -19,6 +19,7 @@ export const environment = {
     listTrending: "/topic/trending",
     getSolutionByID: "/solution",
     findComments: "/comment/find",
+    verifyme: "/user/verifyme",
     postComment: "/v1/comment",
     insertTip: "/v1/tip",
     authorizePayment: "/v1/paypal/authorize"

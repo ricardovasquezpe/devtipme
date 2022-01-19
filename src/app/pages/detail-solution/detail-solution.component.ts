@@ -44,7 +44,7 @@ export class DetailSolutionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    let loadingModal = this.modalService.open(LoadingComponent, {size: 'sm', keyboard: false, centered: true, });
+    let loadingModal = this.modalService.open(LoadingComponent, {size: 'sm', keyboard: false, centered: true, windowClass: 'loading' });
     window.scroll(0,0);
     this.solutionIdEncripted = this.route.snapshot.paramMap.get('id');
     this.apiService.getSolutionById(this.solutionIdEncripted).subscribe(res => {
@@ -59,7 +59,7 @@ export class DetailSolutionComponent implements OnInit {
 
       this.apiService.findCommentsBySolutionId(this.solutionIdEncripted).subscribe(res => {
         this.addComments(res);
-        // loadingModal.close();
+        loadingModal.close();
       }, error => {
         console.log(error)
       });

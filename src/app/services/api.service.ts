@@ -79,4 +79,9 @@ export class ApiService {
         const headers = { 'content-type': 'application/json'}
         return this.http.post(environment.apiUrl + environment.methods.authorizePayment, JSON.stringify(payload), {'headers': headers}).toPromise();
     }
+
+    verifyme(id: string): Observable<any>{
+        const headers = { 'content-type': 'application/json'}
+        return this.http.get(environment.apiUrl + environment.methods.verifyme + "/" + id, {'headers': headers})
+    }
 }

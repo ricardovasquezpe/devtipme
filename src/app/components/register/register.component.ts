@@ -39,7 +39,6 @@ export class RegisterComponent implements OnInit {
     }
     
     this.apiService.register(this.frmRegister.value).subscribe(res => {
-      debugger
       if(res.error){
         this.message = res.error;
         return;

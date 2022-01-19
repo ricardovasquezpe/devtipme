@@ -15,6 +15,7 @@ export class ConfirmationComponent implements OnInit {
   showYesNoButtons: boolean = false;
   showOkbutton: boolean = false;
   titleError: boolean = false;
+  showVerifybutton: boolean = false;
 
   constructor(public activeModal: NgbActiveModal) { }
 
@@ -26,6 +27,8 @@ export class ConfirmationComponent implements OnInit {
     } else if(this.type == 3){ // Error
       this.showOkbutton = true;
       this.titleError = true;
+    }else if(this.type == 4){ // Confirmation Email
+      this.showVerifybutton = true;
     }
   }
 
