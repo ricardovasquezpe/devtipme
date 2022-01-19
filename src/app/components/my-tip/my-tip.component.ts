@@ -68,9 +68,10 @@ export class MyTipComponent {
       },
       style: {
         label: 'paypal',
-        layout: 'vertical',
+        layout: 'horizontal',
         size: 'small',
-        color: 'silver'
+        color: 'silver',
+        shape: 'pill'
       },
       createOrderOnClient: (data) => <ICreateOrderRequest>{
         intent: 'CAPTURE',

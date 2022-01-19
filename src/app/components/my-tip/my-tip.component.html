@@ -22,7 +22,7 @@
   </div>
   <div class="modal-body" *ngIf="this.showPayTipContent">
     <div class="detail-container-pay">
-      <p class="text-detail" style="font-size: 13px;">You can tip with these payment methods</p>
+      <p class="text-detail" style="font-size: 13px;margin-bottom: 20px;">You can tip with these payment methods</p>
       <ngx-paypal [config]="payPalConfig"></ngx-paypal>
     </div>
     <div class="continue-container float-left" (click)="this.return()">

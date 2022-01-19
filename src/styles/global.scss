@@ -37,8 +37,8 @@ body {
     border: 0px !important;
 }
 
-/*@media (min-width: 576px){
-    .modal-sm {
-        max-width: 100px;
+@media (min-width: 576px){
+    .loading.modal.show .modal-sm {
+        max-width: 85px;
     }
-}*/
+}
