@@ -28,6 +28,17 @@ body {
 }
 
 .loading.modal.show .modal-dialog{
-    max-width: 115px !important;
+    justify-content: center;
+  	align-items: center;
 }
 
+.modal-content{
+    width: 85px;
+    border: 0px !important;
+}
+
+@media (min-width: 576px){
+    .modal-sm {
+        max-width: 100px;
+    }
+}

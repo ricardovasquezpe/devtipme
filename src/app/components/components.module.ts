@@ -7,11 +7,12 @@ import { TextareaAutoresizeDirective } from '../directives/textarea-autoresize/t
 import { MyButtonComponent } from './my-button/my-button.component';
 import { FormsModule } from '@angular/forms';
 import { LoadingComponent } from './loading/loading.component';
+import { NgSpinnerModule } from 'ng-bootstrap-spinner';
 
 @NgModule({
     declarations:[SolutionCardComponent, TrendingTopicPillComponent, MyTextareaComponent, CommentComponent, TextareaAutoresizeDirective, MyButtonComponent, LoadingComponent],
     exports:[SolutionCardComponent, TrendingTopicPillComponent, MyTextareaComponent, CommentComponent, MyButtonComponent, LoadingComponent],
-    imports:[FormsModule]
+    imports:[FormsModule, NgSpinnerModule]
 })
 
 export class ComponentsModule{}
