@@ -59,7 +59,7 @@ export class DetailSolutionComponent implements OnInit {
 
       this.apiService.findCommentsBySolutionId(this.solutionIdEncripted).subscribe(res => {
         this.addComments(res);
-        //loadingModal.close();
+        loadingModal.close();
       }, error => {
         console.log(error)
       });
