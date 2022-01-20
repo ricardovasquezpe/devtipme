@@ -28,8 +28,8 @@ export class RegisterComponent implements OnInit {
   }
 
   register(){
-
     if (this.frmRegister.invalid) {
+      this.message = "Some fields are not correct"
         return;
     }
 

@@ -131,7 +131,7 @@ export class NewSolutionComponent implements OnInit {
   openWarningModal(){
     var warningModal = this.modalService.open(ConfirmationComponent, {size: 'sm', keyboard: false, centered: true});
     warningModal.componentInstance.title = 'Missing Fields';
-    warningModal.componentInstance.text = 'Please complete all the required fields';
+    warningModal.componentInstance.text = 'Please complete all the fields';
     warningModal.componentInstance.type = 2;
   }
 

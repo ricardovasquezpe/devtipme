@@ -12,6 +12,7 @@ export class InputComponent implements OnInit {
   @Input() placeHolder: string = "Enter a text";
   @Input() name: string = "";
   @Input() formGroup: FormGroup;
+  @Input() maxLenght:number = 200;
 
   constructor() { }
 

@@ -35,7 +35,7 @@
                 <app-my-textarea [placeHolder] = "'Enter a comment...'" #comment></app-my-textarea>
             </div>
             <div class="mb-4 text-center">
-                <app-my-button [text] ="'POST'" [width] ="'200px'" (click)="this.postcomment()"></app-my-button>
+                <app-my-button [text] ="'Post it!'" [width] ="'200px'" (click)="this.postcomment()"></app-my-button>
             </div>
             <div class="mb-4">
                 <app-comment *ngFor="let comment of comments; index as i; first as isFirst" [comment]="comment"></app-comment>
