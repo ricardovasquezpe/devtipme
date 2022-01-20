@@ -122,7 +122,8 @@ export class MyTipComponent {
     this.modalReference = this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title', 
       size: 'sm', 
-      windowClass: 'myTipModal'});
+      windowClass: 'myTipModal',
+    centered: true});
     this.modalReference.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {

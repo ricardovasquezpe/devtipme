@@ -11,13 +11,14 @@ export class ContentComponent implements OnInit, AfterViewInit {
     @Input() content:string;
     @Input() type:number;
 
+    @ViewChild("editor") private editor: ElementRef<HTMLElement>;
+
     showContentText:boolean = false;
     showContentImage:boolean = false;
     showContentCode:boolean = false;
-
     aceEditor: ace.Ace.Editor;
+    heightAceEditor:number = 400;
 
-    @ViewChild("editor") private editor: ElementRef<HTMLElement>;
     constructor(private host: ElementRef<HTMLElement>) { }
 
     ngOnInit(): void {
@@ -33,6 +34,11 @@ export class ContentComponent implements OnInit, AfterViewInit {
     ngAfterViewInit(){
         if(this.type == 3){
             this.initCodeEditor();
+            var numLines = this.content.split(/\r\n|\r|\n/).length;
+            if(numLines < 20){
+                this.heightAceEditor = numLines * 20;
+            }
+            console.log(this.heightAceEditor);
         }
     }
 
