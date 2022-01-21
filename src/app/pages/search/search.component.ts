@@ -5,6 +5,9 @@ import { AppState } from "src/app/app.reducer";
 import { CardSolution } from "src/app/models/cardsolution.model";
 import { TrendingTopic } from "src/app/models/trendingtopic.model";
 import { ApiService } from "src/app/services/api.service";
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LoadingComponent } from 'src/app/components/loading/loading.component';
+import { Strings } from 'src/app/utils/strings';
 
 @Component({
     selector: 'app-search',
@@ -13,6 +16,7 @@ import { ApiService } from "src/app/services/api.service";
   })
   export class SearchComponent implements OnInit {
 
+    strings = Strings.searchSolutions
     solutions: CardSolution[] = [];
     trendings: TrendingTopic[] = [];
     offset: number = 0;
@@ -22,7 +26,9 @@ import { ApiService } from "src/app/services/api.service";
 
     constructor(private store: Store<AppState>,
       private apiService:ApiService,
-      private route: ActivatedRoute) { }
+      private route: ActivatedRoute,
+      private modalService: NgbModal
+      ) { }
 
       @HostListener('window:scroll', [])
       onScroll(): void {
@@ -45,13 +51,7 @@ import { ApiService } from "src/app/services/api.service";
     }
 
     listTrendings () {
-
-      // createdAt: "2022-01-10T01:35:35.482Z"
-      // title: "AngularJS"
-      // total: 4
-      // updatedAt: "2022-01-10T01:35:35.482Z"
-      // _id: "61db8d67ef5854cc6ac6ff17"
-
+      let loadingModal = this.modalService.open(LoadingComponent, {size: 'sm', keyboard: false, centered: true, windowClass: 'loading' });
       this.apiService.listTrendings().subscribe(res => {
       if(res.length > 0){
          res.forEach( x => {
@@ -62,6 +62,7 @@ import { ApiService } from "src/app/services/api.service";
               this.trendings.push(trending);
         } )
       }
+      loadingModal.close();
       }, error => {
         console.log(error)
       });
@@ -75,15 +76,18 @@ import { ApiService } from "src/app/services/api.service";
         "offset": this.offset
       };
 
+      let loadingModal = this.modalService.open(LoadingComponent, {size: 'sm', keyboard: false, centered: true, windowClass: 'loading' });
       this.apiService.findSolutions(body).subscribe(res => {
         if(res.length == 0){
           this.noMoreSolutions = true;
+          loadingModal.close();
           return
         }
         res.forEach(element => {
           var content = this.getOnlyText(element.content.filter(content => content.type == 1));
           this.solutions.push(new CardSolution(element.encriptedId, element.title, content, new Date(element.createdAt),  element.status));
         });
+        loadingModal.close();
       }, error => {
         console.log(error)
       });

@@ -5,6 +5,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationComponent } from 'src/app/components/confirmation/confirmation.component';
 import { Strings } from 'src/app/utils/strings';
 import { SessionManager } from 'src/app/services/SessionManager';
+import { LoadingComponent } from 'src/app/components/loading/loading.component';
 
 @Component({
   selector: 'app-profile',
@@ -13,7 +14,7 @@ import { SessionManager } from 'src/app/services/SessionManager';
 })
 export class ProfileComponent implements OnInit {
 
-  strings = Strings.myProfile
+  strings = Strings.myProfile;
   solutions: CardSolution[] = [];
   noMoreSolutions:boolean = false;
   myTips: number;
@@ -36,11 +37,13 @@ export class ProfileComponent implements OnInit {
   }
 
   amountMyTips(){
-
+    let loadingModal = this.modalService.open(LoadingComponent, {size: 'sm', keyboard: false, centered: true, windowClass: 'loading' });
+    window.scroll(0,0);
     this.apiService.amountMyTips().subscribe(res => {
       if(res > 0){
          this.myTips = res;
       }
+      loadingModal.close();
     }, error => {
       console.log(error)
     });

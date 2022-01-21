@@ -9,15 +9,15 @@
             </div>
             <div class="col-sm-12 text-center mt-3" *ngIf="this.showYesNoButtons">
                 <div class="row">
-                    <div class="col-sm-6"><button (click)="onClickOptionNo()">No</button></div>
-                    <div class="col-sm-6"><button (click)="onClickOptionyes()">Yes</button></div>
+                    <div class="col-sm-6"><button (click)="onClickOptionNo()">{{ this.strings.no }}</button></div>
+                    <div class="col-sm-6"><button (click)="onClickOptionyes()">{{ this.strings.yes }}</button></div>
                 </div>
             </div>
             <div class="col-sm-12 text-center mt-3" *ngIf="this.showOkbutton">
-                <button (click)="onClickOptionOk()">OK</button>
+                <button (click)="onClickOptionOk()">{{ this.strings.ok }}</button>
             </div>
             <div class="col-sm-12 text-center mt-3" *ngIf="this.showVerifybutton">
-                <button (click)="onClickOptionOk()">Take me home</button>
+                <button (click)="onClickOptionOk()">{{ this.strings.verifyRedirect }}</button>
             </div>
         </div>
     </div>

@@ -5,6 +5,7 @@ import { AppState } from "src/app/app.reducer";
 import { ApiService } from "src/app/services/api.service";
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationComponent } from 'src/app/components/confirmation/confirmation.component';
+import { Strings } from 'src/app/utils/strings';
 
 @Component({
     selector: 'app-verify',
@@ -13,6 +14,7 @@ import { ConfirmationComponent } from 'src/app/components/confirmation/confirmat
   })
   export class VerifyComponent implements OnInit {
 
+    strings = Strings.verify;
     offset: number = 0;
     text: String = "";
     code: string;

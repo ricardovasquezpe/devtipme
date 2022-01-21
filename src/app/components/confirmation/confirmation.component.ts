@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Strings } from 'src/app/utils/strings';
 
 @Component({
   selector: 'app-confirmation',
@@ -12,6 +13,7 @@ export class ConfirmationComponent implements OnInit {
   @Input() text: string = "";
   @Input() title: string = "";
 
+  strings = Strings.confirmation;
   showYesNoButtons: boolean = false;
   showOkbutton: boolean = false;
   titleError: boolean = false;
