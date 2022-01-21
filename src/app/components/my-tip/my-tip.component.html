@@ -6,6 +6,7 @@
 <ng-template #mymodal let-modal>
   <div class="modal-body" *ngIf="this.showTipAmountContent">
     <div class="header-container mb-4" >
+      <img [src]="'assets/images/coding_' + this.randomNumber + '.gif'" style="width: 100%;">
       <div class="super-tip-container text-center">
         <div class="tip-container add-tip" (click) = "this.addTip()">
           <p class="tip">${{this.initalTip}}</p>
@@ -13,7 +14,8 @@
       </div>
     </div>
     <div class="detail-container">
-      <p class="text-detail" style="font-size: 13px;">With yout Tip the Developer can eat one day more</p>
+      <p style="font-size: 13px;font-style: italic;text-align: center;">Click on the green circle to add more tips</p>
+      <p class="text-detail" style="font-size: 15px;margin-top: 5px;">The developer will continue publishing new solutions with your tip!</p>
     </div>
     <div class="continue-container float-right" (click)="this.continue()">
       <p class="m-0">Continue</p>

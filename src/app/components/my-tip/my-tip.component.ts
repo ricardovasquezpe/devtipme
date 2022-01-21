@@ -52,6 +52,7 @@ export class MyTipComponent {
   showPayTipContent: boolean = false;
   public payPalConfig?: IPayPalConfig;
   modalLoginReference;
+  randomNumber:number = 5;
 
   constructor(private modalService: NgbModal,
     private apiService:ApiService,
@@ -59,12 +60,14 @@ export class MyTipComponent {
     private store: Store<AppState>) {}
 
   ngOnInit(): void {
+    this.randomNumber = this.getRandomNumberForGif();
   }
+  
 
   private initConfig(): void {
     this.payPalConfig = {
       currency: Constants.paypalCurrency,
-      clientId: environment.paypal.clientId,
+      clientId: environment.paypal.clientIdProd,
       advanced: {
         commit: 'true'
       },
@@ -187,5 +190,9 @@ export class MyTipComponent {
         }
       }, (reason) => {
     });
+  }
+
+  getRandomNumberForGif(){
+    return Math.floor(Math.random() * (3 - 1) + 1);
   }
 }
