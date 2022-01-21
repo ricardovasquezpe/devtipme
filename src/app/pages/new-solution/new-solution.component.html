@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row mb-4">
         <div class="col-sm-12">
-            <input type="text" class="input-text" placeholder="TITLE..." [(ngModel)]="this.title" maxlength="50">
+            <input type="text" class="input-text" placeholder="TITLE..." [(ngModel)]="this.title" maxlength="50" (ngModelChange)="titleChange($event)">
         </div>
     </div>
     <div class="row" *ngFor="let sol of this.multimediaList; index as i; first as isFirst">

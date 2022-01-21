@@ -8,6 +8,7 @@ import { ApiService } from "src/app/services/api.service";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoadingComponent } from 'src/app/components/loading/loading.component';
 import { Strings } from 'src/app/utils/strings';
+import { Title } from "@angular/platform-browser";
 
 @Component({
     selector: 'app-search',
@@ -27,7 +28,8 @@ import { Strings } from 'src/app/utils/strings';
     constructor(private store: Store<AppState>,
       private apiService:ApiService,
       private route: ActivatedRoute,
-      private modalService: NgbModal
+      private modalService: NgbModal,
+      private titleService:Title
       ) { }
 
       @HostListener('window:scroll', [])
@@ -39,6 +41,7 @@ import { Strings } from 'src/app/utils/strings';
       }
 
     ngOnInit() {
+      this.titleService.setTitle("Search | Next Solution");
       this.topic = (this.route.snapshot.paramMap.get('topic') != null) ? this.route.snapshot.paramMap.get('topic') : "";
 
       this.listTrendings();
@@ -76,18 +79,18 @@ import { Strings } from 'src/app/utils/strings';
         "offset": this.offset
       };
 
-      let loadingModal = this.modalService.open(LoadingComponent, {size: 'sm', keyboard: false, centered: true, windowClass: 'loading' });
+      //let loadingModal = this.modalService.open(LoadingComponent, {size: 'sm', keyboard: false, centered: true, windowClass: 'loading' });
       this.apiService.findSolutions(body).subscribe(res => {
         if(res.length == 0){
           this.noMoreSolutions = true;
-          loadingModal.close();
+          //loadingModal.close();
           return
         }
         res.forEach(element => {
           var content = this.getOnlyText(element.content.filter(content => content.type == 1));
           this.solutions.push(new CardSolution(element.encriptedId, element.title, content, new Date(element.createdAt),  element.status));
         });
-        loadingModal.close();
+        //loadingModal.close();
       }, error => {
         console.log(error)
       });

@@ -42,6 +42,8 @@ export class MyTipComponent {
   @Input() amount:number;
   @Input() solutionId:string;
   @Input() userIdTipped:string;
+  @Input() emailUser:string;
+
   closeResult: string;
   showAddIcon: boolean = false;
   initalTip: number = 1;
@@ -167,6 +169,10 @@ export class MyTipComponent {
   validateTip(){
     if(!this.sessionManager.verifyAuth()){
       this.goToLogin();
+      return false;
+    }
+
+    if(this.sessionManager.retrieveEmail() == this.emailUser){
       return false;
     }
 

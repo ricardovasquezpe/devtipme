@@ -6,6 +6,7 @@ import { ConfirmationComponent } from 'src/app/components/confirmation/confirmat
 import { Strings } from 'src/app/utils/strings';
 import { SessionManager } from 'src/app/services/SessionManager';
 import { LoadingComponent } from 'src/app/components/loading/loading.component';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-profile',
@@ -26,9 +27,11 @@ export class ProfileComponent implements OnInit {
     private apiService:ApiService,
     private modalService: NgbModal,
     private sessionManager:SessionManager,
+    private titleService:Title
   ) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle("My Profile | Next Solution");
     this.myPosts = 0,
     this.myTips = 0,
     this.name = this.sessionManager.retrieveName();

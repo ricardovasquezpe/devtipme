@@ -12,6 +12,7 @@ import { LoginComponent } from 'src/app/components/login/login.component';
 import * as actions from 'src/app/actions/auth/auth.action';
 import { LoadingComponent } from 'src/app/components/loading/loading.component';
 import { Location } from '@angular/common';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-detail-solution',
@@ -40,10 +41,12 @@ export class DetailSolutionComponent implements OnInit {
     private store: Store<AppState>,
     private sessionManager:SessionManager,
     private modalService: NgbModal,
-    private location: Location
+    private location: Location,
+    private titleService:Title
   ) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle("Detail Solution | Next Solution");
     let loadingModal = this.modalService.open(LoadingComponent, {size: 'sm', keyboard: false, centered: true, windowClass: 'loading' });
     window.scroll(0,0);
     this.solutionIdEncripted = this.route.snapshot.paramMap.get('id');
@@ -56,6 +59,7 @@ export class DetailSolutionComponent implements OnInit {
       this.title = res.solution.title;
       this.userName = res.user.email;
       this.userIdTippedEncrypted = res.user.encriptedId;
+      this.titleService.setTitle(res.solution.title + " | Next Solution");
 
       this.apiService.findCommentsBySolutionId(this.solutionIdEncripted).subscribe(res => {
         this.addComments(res);
@@ -100,9 +104,11 @@ export class DetailSolutionComponent implements OnInit {
       "solutionId": this.solutionIdEncripted
     }
 
+    let loadingModal = this.modalService.open(LoadingComponent, {size: 'sm', keyboard: false, centered: true, windowClass: 'loading' });
     this.apiService.postComment(data).subscribe(res => {
       this.comments.unshift(new CommentSolution(this.sessionManager.retrieveEmail(), new Date(res.comment.createdAt), res.comment.comment));
       this.commentTextArea.text = "";
+      loadingModal.close();
     }, error => {
       console.log(error)
     });
@@ -118,7 +124,12 @@ export class DetailSolutionComponent implements OnInit {
       return false;
     }
 
-    if(this.commentTextArea.text.trim().length <= 5){
+    if(this.commentTextArea.text.trim().length <= 5 || this.commentTextArea.text.trim().length >= 100){
+      return false;
+    }
+
+    var numLines = this.commentTextArea.text.split(/\r\n|\r|\n/).length;
+    if(numLines >= 5){
       return false;
     }
 

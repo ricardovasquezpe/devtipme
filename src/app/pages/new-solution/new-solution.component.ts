@@ -10,6 +10,8 @@ import { NgbModal, NgbModalRef, ModalDismissReasons } from '@ng-bootstrap/ng-boo
 import { ConfirmationComponent } from 'src/app/components/confirmation/confirmation.component';
 import { Router } from '@angular/router';
 import { Constants } from 'src/app/utils/constants';
+import { LoadingComponent } from 'src/app/components/loading/loading.component';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-new-solution',
@@ -30,7 +32,8 @@ export class NewSolutionComponent implements OnInit {
   constructor(private apiService:ApiService,
     private store: Store<AppState>,
     private modalService: NgbModal,
-    private router: Router) { }
+    private router: Router,
+    private titleService:Title) { }
   
   eventsSubject: Subject<void> = new Subject<void>();
   counter:number = 1;
@@ -39,6 +42,7 @@ export class NewSolutionComponent implements OnInit {
   title: string = "";
 
   ngOnInit(): void {
+    this.titleService.setTitle("New Solution | Next Solution");
     this.store.select('multimedia').subscribe((data) => {
       this.multimediaTempFinalList = data;
     });
@@ -59,6 +63,8 @@ export class NewSolutionComponent implements OnInit {
       this.store.dispatch(actions.clean());
       return;
     }
+
+    let loadingModal = this.modalService.open(LoadingComponent, {size: 'sm', keyboard: false, centered: true, windowClass: 'loading' });
     await this.addOrderToMultimediaList();
     this.apiService.saveSolution(this.getSolutionStruct()).subscribe(res => {
       if(res.error != null){
@@ -69,6 +75,8 @@ export class NewSolutionComponent implements OnInit {
         this.multimediaFinalList = [];
         this.store.dispatch(actions.clean());
       } else {
+        loadingModal.close();
+        this.store.dispatch(actions.clean());
         this.router.navigateByUrl('/');
       }
     }, error => {
@@ -140,5 +148,13 @@ export class NewSolutionComponent implements OnInit {
     formData.append('file', uploadedFile);
     var res = await this.apiService.uploadFile(formData).toPromise();
     return res.fileName;
+  }
+
+  titleChange(event:any){
+    if(event.trim().length > 0){
+      this.titleService.setTitle(event.trim() + " | Next Solution");
+    } else {
+      this.titleService.setTitle("New Solution | Next Solution");
+    }
   }
 }

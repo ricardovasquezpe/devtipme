@@ -37,8 +37,13 @@ body {
     border: 0px !important;
 }
 
+.loading.modal .modal-content{
+    width: 85px;
+    border: 0px !important;
+}
+
 @media (min-width: 576px){
-    .loading.modal.show .modal-sm {
-        max-width: 85px;
+    .loading.modal .modal-sm {
+        max-width: 85px !important;
     }
 }

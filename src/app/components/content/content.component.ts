@@ -38,7 +38,6 @@ export class ContentComponent implements OnInit, AfterViewInit {
             if(numLines < 20){
                 this.heightAceEditor = numLines * 20;
             }
-            console.log(this.heightAceEditor);
         }
     }
 
