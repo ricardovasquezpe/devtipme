@@ -58,7 +58,7 @@ export class RegisterComponent implements OnInit {
 
       this.modalProfileReference = this.modalService.open(ConfirmationComponent, {size: 'sm', keyboard: false, centered: true});
       this.modalProfileReference.componentInstance.type = 2;
-      this.modalProfileReference.componentInstance.text = 'We sent you an email so you can verify your email address';
+      this.modalProfileReference.componentInstance.text = 'Welcome to Next Solution!, We sent you an email so you can verify your email address';
     }, error => console.log('error', error));
   }
 

@@ -69,8 +69,8 @@ export class NewSolutionComponent implements OnInit {
     this.apiService.saveSolution(this.getSolutionStruct()).subscribe(res => {
       if(res.error != null){
         var warningModal = this.modalService.open(ConfirmationComponent, {size: 'sm', keyboard: false, centered: true});
-        warningModal.componentInstance.title = 'User not verified';
-        warningModal.componentInstance.text = 'Please verify your email to be able to create a new solution';
+        warningModal.componentInstance.title = 'Your user is not verified';
+        warningModal.componentInstance.text = 'We sent you an email so you can verify your email address, then you can create a solution, hurry up!';
         warningModal.componentInstance.type = 2;
         this.multimediaFinalList = [];
         this.store.dispatch(actions.clean());
