@@ -4,6 +4,7 @@ import { ApiService } from '../../services/api.service'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationComponent } from 'src/app/components/confirmation/confirmation.component';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'app-register',
@@ -43,12 +44,14 @@ export class RegisterComponent implements OnInit {
         return;
     }
     
+    let loadingModal = this.modalService.open(LoadingComponent, {size: 'sm', keyboard: false, centered: true, windowClass: 'loading' });
     this.apiService.register(this.frmRegister.value).subscribe(res => {
       if(res.error){
         this.message = res.error;
         return;
       }
 
+      loadingModal.close();
       this.activeModal.close({
           "completed": true,
           "email": this.frmRegister.value.email,
@@ -57,8 +60,9 @@ export class RegisterComponent implements OnInit {
       });
 
       this.modalProfileReference = this.modalService.open(ConfirmationComponent, {size: 'sm', keyboard: false, centered: true});
+      this.modalProfileReference.componentInstance.title = 'Welcome to Next Solution';
       this.modalProfileReference.componentInstance.type = 2;
-      this.modalProfileReference.componentInstance.text = 'Welcome to Next Solution!, We sent you an email so you can verify your email address';
+      this.modalProfileReference.componentInstance.text = 'We sent you an email so you can verify your email address';
     }, error => console.log('error', error));
   }
 
