@@ -2,7 +2,7 @@ export const environment = {
   production: false,
   paypal:{
     clientId: "AaLifL9xZQYOxIeqUVxYTrGIm_bWY1m9KWPKaRt_4PptuQLNZm74V9jLC8ZlKFS53wvP-_7VZm8hm1zz",
-    clientIdProd: "ASPNa5ySH4WMvDFaCW19CqCyuKXMOxkMSG7sZWmcSyirX8aNuqkC9dFRMC-IPmTfEWZbnZxwFqhSSV_F"
+    clientIdProd: ""
   },
   apiUrl: "http://localhost:5000",
   methods: {
