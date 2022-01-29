@@ -1,8 +1,8 @@
 export const environment = {
   production: false,
   paypal:{
-    clientId: "AaLifL9xZQYOxIeqUVxYTrGIm_bWY1m9KWPKaRt_4PptuQLNZm74V9jLC8ZlKFS53wvP-_7VZm8hm1zz",
-    clientIdProd: ""
+    clientId: "Adt1BlXctAeZQHHV5aDXiLHNQweW3EDCP7NsGKXXhYnQmmkdNhsiTrmWunRWMLgBHChPtYcgvJIiwDTP",
+    clientIdProd: "AfHwHWrR7waKwqYL4GH68sVPqH0cPMKiFd81YOS0dxoyzeqJL_62-4FW77-yzU2xwbe7nhvtoJFDU3jJ"
   },
   apiUrl: "http://localhost:5000",
   methods: {

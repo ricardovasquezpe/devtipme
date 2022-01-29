@@ -45,8 +45,7 @@ import { Title } from "@angular/platform-browser";
       let loadingModal = this.modalService.open(LoadingComponent, {size: 'sm', keyboard: false, centered: true, windowClass: 'loading' });
       this.apiService.verifyme(this.code).subscribe(res => {
         loadingModal.close();
-        if(res.error != null){
-          this.modalProfileReference = this.modalService.open(ConfirmationComponent, {size: 'sm', keyboard: false, centered: true});
+        this.modalProfileReference = this.modalService.open(ConfirmationComponent, {size: 'sm', keyboard: false, centered: true});
           this.modalProfileReference.componentInstance.type = 4;
           this.modalProfileReference.componentInstance.title = 'Verication Completed';
           this.modalProfileReference.componentInstance.text = 'Now you can start creating your first solution!';
@@ -56,18 +55,6 @@ import { Title } from "@angular/platform-browser";
               }
             }, (reason) => {
           });
-        } else {
-          this.modalProfileReference = this.modalService.open(ConfirmationComponent, {size: 'sm', keyboard: false, centered: true});
-          this.modalProfileReference.componentInstance.type = 4;
-          this.modalProfileReference.componentInstance.title = 'The link already expired or the user was already verified';
-          this.modalProfileReference.componentInstance.text = 'Now you can start creating your first solution!';
-          this.modalProfileReference.result.then((result) => {
-              if(result.completed){
-                this.router.navigate(["/search"]);
-              }
-            }, (reason) => {
-          });
-        }
       }, error => {
         loadingModal.close();
         this.modalProfileReference = this.modalService.open(ConfirmationComponent, {size: 'sm', keyboard: false, centered: true});
